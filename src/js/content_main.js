@@ -12,21 +12,16 @@ const commandDisplay = document.createElement("div");
 commandDisplay.appendChild(document.createTextNode(""));
 document.body.appendChild(commandDisplay);
 
-const buttonClearDisplay = document.createElement("BUTTON");
-buttonClearDisplay.appendChild(document.createTextNode("Clear Commands"));
-document.body.appendChild(buttonClearDisplay);
-
 const textInput = document.createElement("input");
 textInput.type = "text";
 document.body.appendChild(textInput);
 
 textInput.addEventListener("keydown", e => {
-    console.log(e);
     handleCommandEntered(e.key);
 });
 
 const command = {
-    commandText: "Type to play" 
+    commandText: "" 
 };
 
 function clearCommand() {
@@ -53,12 +48,6 @@ function appendCommandDisplay(command) {
     updateCommandDisplay();
 }
 
-buttonClearDisplay.addEventListener("click", e => {
-    console.log("Clear clicked");
-    clearCommandDisplay();
-});
-
-
 function updateCommandDisplay() {
     commandDisplay.innerHTML = "Commands: " + command.commandText;
 }
@@ -71,7 +60,6 @@ function onKeyPressed(event) {
 
 function handleCommandEntered(data) {
 
-    console.log("Data received: " + data);
     if (data === "Enter") {
         handleCommandFinished();
         clearCommandDisplay();
