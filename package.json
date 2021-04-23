@@ -1,0 +1,16 @@
+{
+  "name": "lichess_keyboard",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Play games on lichess.org with the keyboard using algebraic chess notation",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require esm"
+  },
+  "author": "Luís Copetti",
+  "license": "ISC",
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "mocha": "^8.3.2"
+  }
+}
