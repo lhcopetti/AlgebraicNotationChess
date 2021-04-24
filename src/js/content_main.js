@@ -6,19 +6,9 @@ export function main() {
             );
 };
 
-import libNotation from '/src/js/algebraicNotation.js'
-
-const commandDisplay = document.createElement("div");
-commandDisplay.appendChild(document.createTextNode(""));
-document.body.appendChild(commandDisplay);
-
-const textInput = document.createElement("input");
-textInput.type = "text";
-document.body.appendChild(textInput);
-
-textInput.addEventListener("keydown", e => {
-    handleCommandEntered(e.key);
-});
+import LibNotation from '/src/js/algebraicNotation.js'
+import LibHtml from '/src/js/htmlController.js'
+import LichessKeyboard from '/src/js/LichessKeyboard.js'
 
 const command = {
     commandText: "" 
@@ -28,10 +18,6 @@ function clearCommand() {
     command.commandText = "";
 }
 
-function clearInput() {
-    textInput.value = "";
-}
-
 function appendCommand(comm) {
     command.commandText += comm;
 }
@@ -39,7 +25,7 @@ function appendCommand(comm) {
 
 function clearCommandDisplay() {
     clearCommand();
-    clearInput();
+    htmlController.clearInput();
     updateCommandDisplay();
 }
 
@@ -49,52 +35,17 @@ function appendCommandDisplay(command) {
 }
 
 function updateCommandDisplay() {
-    commandDisplay.innerHTML = "Commands: " + command.commandText;
+    htmlController.updateCommandDisplay("Commands: " + command.commandText);
 }
 
-function onKeyPressed(event) {
-    console.log("Key press registered");
-    console.log(event);
-    handleCommandEntered(event);
-}
+const htmlController = new LibHtml(document);
+const libNotation = new LibNotation();
+const lichessKeyboard = new LichessKeyboard(libNotation);
 
-function handleCommandEntered(data) {
 
-    if (data === "Enter") {
-        handleCommandFinished();
-        clearCommandDisplay();
-        return;
-    }
+lichessKeyboard.addEventListener(htmlController);
+htmlController.addKeyListener(lichessKeyboard);
 
-    appendCommandDisplay(data);
-}
-
-function sendMoveCommandToLichess(token, gameId, move) {
-    const method = 'POST';
-    const body = {};
-
-    const headers = new Headers();
-    headers.append("Authorization", "Bearer " + token);
-
-    fetch('https://lichess.org/api/board/game/' + gameId + '/move/' + move, {
-        method: method,
-        body: body,
-        headers: headers
-    })
-        .then(res => res.json())
-        .then(console.log)
-}
-
-function handleCommandFinished() {
-    const gameId = "fkNCOdZe";
-    const token = "eNbZ8vaMfceKlXUk"
-    const move = command.commandText;
-
-    libNotation("e2e4");
-
-    console.log("The command is: " + move);
-    sendMoveCommandToLichess(token, gameId, move);
-}
-
+htmlController.init();
 clearCommandDisplay();
 
