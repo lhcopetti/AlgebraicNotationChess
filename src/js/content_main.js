@@ -46,6 +46,14 @@ const lichessKeyboard = new LichessKeyboard(libNotation);
 lichessKeyboard.addEventListener(htmlController);
 htmlController.addKeyListener(lichessKeyboard);
 
+console.log("Initializing LichessKeyboard extension");
+
 htmlController.init();
 clearCommandDisplay();
 
+chrome.runtime.sendMessage({ data: "URL_REQUEST" } , function(response) {
+      console.log(response);
+    const url = response.data;
+    const gameId = url.substring(url.lastIndexOf('/') + 1);
+    lichessKeyboard.updateGameId(gameId);
+});

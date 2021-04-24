@@ -28,6 +28,13 @@ export default class LichessKeyboard {
             this.notifyListenerEndOfCommand(this.commandBuffer);
             return;
         }
+
+        this.appendCommand(data);
+    }
+
+    updateGameId(gameId) {
+        console.log("Updated the GameID to: " + gameId);
+        this.gameId = gameId;
     }
 
     sendMoveCommandToLichess(token, gameId, move) {
@@ -47,7 +54,7 @@ export default class LichessKeyboard {
     }
 
     handleCommandFinished() {
-        const gameId = "fkNCOdZe";
+        const gameId = this.gameId;
         const token = "eNbZ8vaMfceKlXUk"
         const move = this.commandBuffer;
 

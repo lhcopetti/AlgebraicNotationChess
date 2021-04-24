@@ -4,6 +4,9 @@
     "version": "1.0",
     "manifest_version": 3,
 
+    "background": {
+        "service_worker": "backgroundScript.js"
+    },
     "content_scripts": [
         {
             "matches": [ "https://lichess.org/*" ],
@@ -13,10 +16,6 @@
         }
     ],
     "permissions": [
-        "storage", 
-        "activeTab", 
-        "scripting",
-        "webRequest"
     ],
     "icons": {
         "16": "/images/get_started16.png",
