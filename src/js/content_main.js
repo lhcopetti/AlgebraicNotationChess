@@ -50,9 +50,8 @@ const lichessAPIClient = new LichessAPIClient(token);
 const lichessKeyboard = new LichessKeyboard(libNotation, lichessAPIClient);
 
 
+htmlController.addListener(lichessKeyboard);
 lichessKeyboard.addEventListener(htmlController);
-htmlController.addKeyListener(lichessKeyboard);
-
 
 htmlController.init();
 clearCommandDisplay();

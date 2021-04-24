@@ -17,14 +17,22 @@ export default class HtmlController {
 
         const self = this;
         this.textInput.addEventListener("keydown", e => {
+            console.log("Key press registered: " + e.key);
 
-            if (null != self.listener)
-                self.listener.handleKeyPressed(e.key);
+            if (e.key == "Enter") {
+                const command = this.textInput.value;
+                console.log("Command finished: " + command);
+                this.notifyNewCommand(command);
+            }
         });
     }
 
-    addKeyListener(listener) {
+    addListener(listener) {
         this.listener = listener;
+    }
+
+    notifyNewCommand(command) {
+        this.listener.handleCommand(command);
     }
 
     clearInput() {
