@@ -2,8 +2,9 @@
 
 export default class LichessKeyboard {
 
-    constructor(libNotation) {
+    constructor(libNotation, lichessAPIClient) {
         this.libNotation = libNotation;
+        this.lichessAPIClient = lichessAPIClient;
         this.commandBuffer = "";
     }
 
@@ -37,31 +38,12 @@ export default class LichessKeyboard {
         this.gameId = gameId;
     }
 
-    sendMoveCommandToLichess(token, gameId, move) {
-        const method = 'POST';
-        const body = {};
-
-        const headers = new Headers();
-        headers.append("Authorization", "Bearer " + token);
-
-        fetch('https://lichess.org/api/board/game/' + gameId + '/move/' + move, {
-            method: method,
-            body: body,
-            headers: headers
-        })
-            .then(res => res.json())
-            .then(console.log)
-    }
-
     handleCommandFinished() {
         const gameId = this.gameId;
-        const token = "eNbZ8vaMfceKlXUk"
         const move = this.commandBuffer;
 
-        this.libNotation.convert("d5");
-
-        console.log("The command is: " + move);
-        this.sendMoveCommandToLichess(token, gameId, move);
+        console.log("The command typed is: " + move);
+        this.lichessAPIClient.sendMove(gameId, move);
     }
 
     addEventListener(listener) {

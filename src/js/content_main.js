@@ -9,6 +9,7 @@ export function main() {
 import LibNotation from '/src/js/algebraicNotation.js'
 import LibHtml from '/src/js/htmlController.js'
 import LichessKeyboard from '/src/js/LichessKeyboard.js'
+import LichessAPIClient from '/src/js/LichessAPIClient.js'
 
 const command = {
     commandText: "" 
@@ -38,18 +39,24 @@ function updateCommandDisplay() {
     htmlController.updateCommandDisplay("Commands: " + command.commandText);
 }
 
+console.log("Initializing LichessKeyboard extension");
+
 const htmlController = new LibHtml(document);
 const libNotation = new LibNotation();
-const lichessKeyboard = new LichessKeyboard(libNotation);
+
+const token = "eNbZ8vaMfceKlXUk";
+const lichessAPIClient = new LichessAPIClient(token);
+
+const lichessKeyboard = new LichessKeyboard(libNotation, lichessAPIClient);
 
 
 lichessKeyboard.addEventListener(htmlController);
 htmlController.addKeyListener(lichessKeyboard);
 
-console.log("Initializing LichessKeyboard extension");
 
 htmlController.init();
 clearCommandDisplay();
+
 
 chrome.runtime.sendMessage({ data: "URL_REQUEST" } , function(response) {
       console.log(response);

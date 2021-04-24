@@ -37,6 +37,6 @@ export default class HtmlController {
 
     notifyEndOfCommand(command) {
         console.log("The command has finished: " + command);
-        //clearCommandDisplay();
+        this.clearInput();
     }
 }
