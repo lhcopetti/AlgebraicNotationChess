@@ -10,6 +10,7 @@ import LibNotation from '/src/js/algebraicNotation.js'
 import LibHtml from '/src/js/htmlController.js'
 import LichessKeyboard from '/src/js/LichessKeyboard.js'
 import LichessAPIClient from '/src/js/LichessAPIClient.js'
+import LichessHtmlBoardReader from '/src/js/LichessHtmlBoardReader.js'
 
 const command = {
     commandText: "" 
@@ -63,3 +64,8 @@ chrome.runtime.sendMessage({ data: "URL_REQUEST" } , function(response) {
     const gameId = url.substring(url.lastIndexOf('/') + 1);
     lichessKeyboard.updateGameId(gameId);
 });
+
+
+const boardReader = new LichessHtmlBoardReader();
+const htmlBoard = boardReader.readBoard(document);
+console.log(htmlBoard);

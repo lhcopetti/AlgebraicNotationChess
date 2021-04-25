@@ -25,6 +25,12 @@ export default class HtmlController {
                 this.notifyNewCommand(command);
             }
         });
+
+        const cgBoard = document.querySelector("cg-board");
+        console.log(cgBoard);
+
+        const cgContainer = document.querySelector("cg-container");
+        console.log(cgContainer);
     }
 
     addListener(listener) {
