@@ -6,11 +6,11 @@ export function main() {
             );
 };
 
-import LibNotation from '/src/js/algebraicNotation.js'
-import LibHtml from '/src/js/htmlController.js'
-import LichessKeyboard from '/src/js/LichessKeyboard.js'
-import LichessAPIClient from '/src/js/LichessAPIClient.js'
-import LichessHtmlBoardReader from '/src/js/LichessHtmlBoardReader.js'
+import LibNotation from './algebraicNotation'
+import LibHtml from '/src/htmlController'
+import LichessKeyboard from '/src/LichessKeyboard'
+import LichessAPIClient from '/src/LichessAPIClient'
+import LichessHtmlBoardReader from '/src/LichessHtmlBoardReader'
 
 const command = {
     commandText: "" 

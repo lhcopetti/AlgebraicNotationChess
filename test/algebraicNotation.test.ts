@@ -1,4 +1,7 @@
-const AlgebraicNotationLibrary = require('../src/js/algebraicNotation.js');
+import AlgebraicNotationLibrary from '../src/algebraicNotation';
+
+
+
 const assert = require('assert');
 
 describe('pawn moves', function() {

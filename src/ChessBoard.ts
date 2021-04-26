@@ -2,7 +2,9 @@
 
 export default class ChessBoard {
 
-    constructor(pieces) {
+    pieces: any[];
+
+    constructor(pieces: any[]) {
         this.pieces = pieces;
     }
 

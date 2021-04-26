@@ -1,5 +1,5 @@
 
-import ChessBoard from '/src/js/ChessBoard.js';
+import ChessBoard from '/src/ChessBoard';
 
 export default class LichessHtmlBoardReader {
 
