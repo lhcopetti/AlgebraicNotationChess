@@ -39,6 +39,7 @@ export default class HtmlController {
 
     notifyNewCommand(command) {
         this.listener.handleCommand(command);
+        this.clearInput();
     }
 
     clearInput() {

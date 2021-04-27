@@ -52,7 +52,6 @@ const lichessKeyboard = new LichessKeyboard(libNotation, lichessAPIClient);
 
 
 htmlController.addListener(lichessKeyboard);
-lichessKeyboard.addEventListener(htmlController);
 
 htmlController.init();
 clearCommandDisplay();

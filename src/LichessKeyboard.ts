@@ -19,7 +19,7 @@ export default class LichessKeyboard {
         const gameId = this.gameId;
 
         if (gameId == null) {
-            console.log ("Command: " + command + " has been ignore, gameId has not been set it");
+            console.log ("Command: " + command + " has been ignored, gameId has not been set yet");
             return;
         }
 
