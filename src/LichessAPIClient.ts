@@ -2,13 +2,15 @@
 
 export default class LichessAPIClient {
 
-    constructor(token) {
+    token: string;
+
+    constructor(token: string) {
         this.token = token;
     }
 
-    sendMove(gameId, move) {
+    sendMove(gameId: string, move: string) {
         const method = 'POST';
-        const body = {};
+        const body = {} as any;
 
         const headers = new Headers();
         headers.append("Authorization", "Bearer " + this.token);
