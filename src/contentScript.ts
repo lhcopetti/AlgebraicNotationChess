@@ -6,39 +6,11 @@ export function main() {
             );
 };
 
-import LibNotation from './algebraicNotation'
-import LibHtml from '/src/htmlController'
-import LichessKeyboard from '/src/LichessKeyboard'
-import LichessAPIClient from '/src/LichessAPIClient'
-import LichessHtmlBoardReader from '/src/LichessHtmlBoardReader'
-
-const command = {
-    commandText: "" 
-};
-
-function clearCommand() {
-    command.commandText = "";
-}
-
-function appendCommand(comm) {
-    command.commandText += comm;
-}
-
-
-function clearCommandDisplay() {
-    clearCommand();
-    htmlController.clearInput();
-    updateCommandDisplay();
-}
-
-function appendCommandDisplay(command) {
-    appendCommand(command);
-    updateCommandDisplay();
-}
-
-function updateCommandDisplay() {
-    htmlController.updateCommandDisplay("Commands: " + command.commandText);
-}
+import LibNotation from 'src/algebraicNotation'
+import LibHtml from 'src/HtmlController'
+import LichessKeyboard from 'src/LichessKeyboard'
+import LichessAPIClient from 'src/LichessAPIClient'
+import LichessHtmlBoardReader from 'src/LichessHtmlBoardReader'
 
 console.log("Initializing LichessKeyboard extension");
 
@@ -54,8 +26,6 @@ const lichessKeyboard = new LichessKeyboard(libNotation, lichessAPIClient);
 htmlController.addListener(lichessKeyboard);
 
 htmlController.init();
-clearCommandDisplay();
-
 
 chrome.runtime.sendMessage({ data: "URL_REQUEST" } , function(response) {
       console.log(response);

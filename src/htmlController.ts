@@ -53,6 +53,7 @@ export default class HtmlController {
 
     notifyNewCommand(command: string) {
         this.listener?.handleCommand(command);
+        this.updateCommandDisplay(command);
         this.clearInput();
     }
 
@@ -67,6 +68,6 @@ export default class HtmlController {
         if (null == this.commandDisplay)
             return;
 
-        this.commandDisplay.innerHTML = "Commands: " + newCommandDisplayText;
+        this.commandDisplay.innerHTML = "Command executed: " + newCommandDisplayText;
     }
 }
