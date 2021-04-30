@@ -18,6 +18,29 @@ export default class AlgebraicNotation {
     }
 
     doConvert(command: string): string {
+
+        const pawnMove = this.isPawnMove(command);
+
+        if (pawnMove != null)
+            return pawnMove;
+
         return "e2e4";
+    }
+
+
+    isPawnMove(command: string): string | null {
+
+        if (command.length != 2)
+            return null;
+
+        const file = command[0];
+        const rank = command[1];
+
+        console.log("File: " + file + " rank: " + rank);
+
+        if (!this.files.includes(file))
+            return null;
+
+        return file + '2' + file + rank;
     }
 }
