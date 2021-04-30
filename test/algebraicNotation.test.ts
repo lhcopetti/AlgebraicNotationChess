@@ -1,4 +1,4 @@
-import AlgebraicNotationLibrary from '../src/algebraicNotation';
+import AlgebraicNotationLibrary from '../src/AlgebraicNotation';
 
 
 

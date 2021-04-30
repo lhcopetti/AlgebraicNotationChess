@@ -1,5 +1,5 @@
 
-import LibNotation from 'src/algebraicNotation';
+import LibNotation from 'src/AlgebraicNotation';
 import LichessClient from 'src/LichessAPIClient';
 
 
@@ -24,7 +24,9 @@ export default class LichessKeyboard {
         }
 
         console.log("The command typed is: " + command);
-        this.lichessAPIClient.sendMove(gameId, command);
+
+        const lichessCommand = this.libNotation.convert(command);
+        this.lichessAPIClient.sendMove(gameId, lichessCommand);
     }
 
     updateGameId(gameId: string) {

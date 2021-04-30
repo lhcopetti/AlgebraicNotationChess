@@ -1,5 +1,5 @@
 
-console.log("Backgroudn script initialized successfully");
+console.log("Background script initialized successfully");
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {

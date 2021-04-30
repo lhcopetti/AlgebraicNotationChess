@@ -6,11 +6,11 @@ export function main() {
             );
 };
 
-import LibNotation from 'src/algebraicNotation'
-import LibHtml from 'src/HtmlController'
-import LichessKeyboard from 'src/LichessKeyboard'
-import LichessAPIClient from 'src/LichessAPIClient'
-import LichessHtmlBoardReader from 'src/LichessHtmlBoardReader'
+import LibNotation from './src/AlgebraicNotation'
+import LibHtml from './src/HtmlController'
+import LichessKeyboard from './src/LichessKeyboard'
+import LichessAPIClient from './src/LichessAPIClient'
+import LichessHtmlBoardReader from './src/LichessHtmlBoardReader'
 
 console.log("Initializing LichessKeyboard extension");
 
