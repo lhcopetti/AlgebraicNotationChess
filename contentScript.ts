@@ -1,9 +1,9 @@
 
 export function main() {
-      console.log(
-              "Is chrome.runtime available here?",
-              typeof chrome.runtime.sendMessage == "function",
-            );
+    console.log(
+        "Is chrome.runtime available here?",
+        typeof chrome.runtime.sendMessage == "function",
+    );
 };
 
 import LibNotation from './src/AlgebraicNotation'
@@ -29,12 +29,13 @@ htmlController.addListener(lichessKeyboard);
 htmlController.init();
 
 chrome.runtime.sendMessage({ data: "URL_REQUEST" } , function(response) {
-      console.log(response);
+    console.log(response);
     const url = response.data;
     const gameId = url.substring(url.lastIndexOf('/') + 1);
     lichessKeyboard.updateGameId(gameId);
 });
 
-
-const htmlBoard = lichessBoardReader.readBoard(document);
-console.log(htmlBoard);
+setTimeout(() => {
+   const htmlBoard = lichessBoardReader.readBoard(document);
+   console.log(htmlBoard);
+}, 1000);

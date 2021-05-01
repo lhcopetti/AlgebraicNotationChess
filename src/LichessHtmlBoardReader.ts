@@ -1,60 +1,35 @@
 
 import { ChessBoard } from './chess/core/ChessBoard';
 
-class HtmlPiece {
-    classList: string;
-    style: string;
-
-    constructor(classList: string, style: string) {
-        this.classList = classList;
-        this.style = style;
-    }
-}
-
-class HtmlBoardDescriptor {
-
-    height: number;
-    width: number;
-    pieces: HtmlPiece[];
-
-    constructor(height: number, width: number, pieces: HtmlPiece[]) {
-        this.height = height;
-        this.width = width;
-        this.pieces = pieces;
-    }
-}
-
 export default class LichessHtmlBoardReader {
 
     readBoard(document: Document) {
+
+        const self = this;
         const htmlBoardDescriptor = this.readBoardDescriptor(document);
         console.log(htmlBoardDescriptor);
         return this.createChessBoard(htmlBoardDescriptor);
     }
 
-    readBoardDescriptor(document: Document) {
-        const cgContainer = document.querySelector("cg-container");
-        const cgBoard = document.querySelector("cg-board");
+    readBoardDescriptor(document: Document): string[] {
 
-        if (cgContainer == null || cgBoard == null) {
-            throw new Error("Could not find cg-container or cg-board elements");
+        const listOfMovesElementName = "l4x"
+        const listOfMoves = document.querySelector(listOfMovesElementName);
+
+        if (null == listOfMoves) {
+            console.log("Could not read the board. The element " + listOfMovesElementName + " could not be found");
+            return [];
         }
 
-        const boardWidth = cgContainer.getBoundingClientRect().width;
-        const boardHeight = cgContainer.getBoundingClientRect().height;
-        const htmlPieces = Array.from(cgBoard.children as HTMLCollectionOf<HTMLElement>)
-            .map(htmlPiece => {
-                return {
-                    classList: htmlPiece.classList.value,
-                    style: htmlPiece.style.cssText
-                };
-            });
+        const moves = Array.from(listOfMoves.children as HTMLCollectionOf<HTMLElement>)
+            .filter(c => c.tagName.toUpperCase() == "U8T")
+            .map(moveElement => moveElement.innerText);
 
-        return new HtmlBoardDescriptor(boardHeight, boardWidth, htmlPieces);
+        return moves;
     }
 
-    createChessBoard(htmlBoardDescriptor: HtmlBoardDescriptor): ChessBoard {
-        //throw new Error();
+    createChessBoard(moves: string[]): ChessBoard {
+        console.log(moves);
         return ChessBoard.fromList([]);
     }
 
