@@ -15,12 +15,20 @@ class ChessSquare {
         return new ChessSquare(file, rank);
     }
 
+    public toString(): string {
+        return ChessFile[this.file] + this.rank.rank;
+    }
+
     public get file() {
         return this._file;
     }
 
     public get rank() {
         return this._rank;
+    }
+
+    public get down() {
+        return new ChessSquare(this.file, new ChessRank(this.rank.rank - 1));
     }
 }
 
@@ -40,6 +48,10 @@ class ChessRank {
             throw new Error("Invalid number for a ChessRank: " + rank);
 
         this._rank = rank;
+    }
+
+    public static fromString(rank: string) {
+        return new ChessRank(+rank);
     }
 
     public get rank() {

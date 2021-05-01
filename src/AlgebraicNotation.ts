@@ -1,5 +1,6 @@
 
 import { ChessBoard } from './chess/core/ChessBoard'
+import { ChessSquare } from './chess/core/ChessSquare'
 
 export default class AlgebraicNotation {
 
@@ -20,7 +21,7 @@ export default class AlgebraicNotation {
 
     doConvert(command: string, board: ChessBoard): string {
 
-        const pawnMove = this.isPawnMove(command);
+        const pawnMove = this.isPawnMove(command, board);
 
         if (pawnMove != null)
             return pawnMove;
@@ -29,19 +30,19 @@ export default class AlgebraicNotation {
     }
 
 
-    isPawnMove(command: string): string | null {
+    isPawnMove(command: string, board: ChessBoard): string | null {
 
         if (command.length != 2)
             return null;
 
-        const file = command[0];
-        const rank = command[1];
+        const square = ChessSquare.fromString(command);
+        const destination = square.toString();
 
-        console.log("File: " + file + " rank: " + rank);
+        var origin = square.down;
 
-        if (!this.files.includes(file))
-            return null;
+        if (null == board.getAtSquare(origin))
+            origin = origin.down;
 
-        return file + '2' + file + rank;
+        return origin + destination;
     }
 }

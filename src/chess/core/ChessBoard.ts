@@ -48,8 +48,10 @@ class ChessBoard {
     }
 
     public getAt(coordinate: string): ChessPiece | null {
+        return this.getAtSquare(ChessSquare.fromString(coordinate));
+    }
 
-        const square = ChessSquare.fromString(coordinate);
+    public getAtSquare(square: ChessSquare): ChessPiece | null {
         const file = square.file;
         const rank = square.rank;
         return this.board[ChessRank.rankCount - rank.rank][file];
