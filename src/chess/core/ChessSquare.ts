@@ -28,6 +28,9 @@ enum ChessFile {
     a, b, c, d, e, f, g, h
 }
 
+const chessFileCount = Object.keys(ChessFile).length / 2;
+
+
 class ChessRank {
 
     private _rank: number;
@@ -42,7 +45,11 @@ class ChessRank {
     public get rank() {
         return this._rank;
     }
+
+    public static get rankCount() {
+        return 8;
+    }
 }
 
 
-export { ChessFile, ChessRank, ChessSquare }
+export { ChessFile, ChessRank, ChessSquare, chessFileCount }

@@ -1,7 +1,7 @@
 
 
 enum ChessPieceType {
-
+    KING,
     PAWN
 };
 

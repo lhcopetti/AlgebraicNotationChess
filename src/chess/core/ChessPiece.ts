@@ -19,4 +19,22 @@ export default class ChessPiece {
     public get color() {
         return this._color;
     }
+
+    public toString(): string {
+
+        const color = this.color == ChessColor.BLACK ? "b" : "w";
+        const piece = this.pieceTypeToString();
+
+        return color + piece;
+    }
+
+    private pieceTypeToString(): string {
+        
+        if (this.piece == ChessPieceType.KING)
+            return "k";
+        if (this.piece == ChessPieceType.PAWN)
+            return "p";
+
+        throw new Error("ChessPieceType: " + this.piece + " not yet supported");
+    }
 }
