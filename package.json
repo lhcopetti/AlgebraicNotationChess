@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Play games on lichess.org with the keyboard using algebraic chess notation",
   "scripts": {
-    "build": "tsc && parcel build ./contentScript.ts ./src/backgroundScript.ts",
+    "build": "tsc && parcel build ./contentScript.ts ./backgroundScript.ts",
     "test": "npx jest",
     "testc": "npx jest --coverage",
     "copyPublicToDist": "copyfiles --error --up 1 public/*.* dist/",
