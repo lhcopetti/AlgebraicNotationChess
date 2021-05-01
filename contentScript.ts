@@ -14,7 +14,8 @@ import LichessHtmlBoardReader from './src/LichessHtmlBoardReader'
 
 console.log("Initializing LichessKeyboard extension");
 
-const htmlController = new LibHtml(document);
+const lichessBoardReader = new LichessHtmlBoardReader();
+const htmlController = new LibHtml(document, lichessBoardReader);
 const libNotation = new LibNotation();
 
 const token = "eNbZ8vaMfceKlXUk";
@@ -35,6 +36,5 @@ chrome.runtime.sendMessage({ data: "URL_REQUEST" } , function(response) {
 });
 
 
-const boardReader = new LichessHtmlBoardReader();
-const htmlBoard = boardReader.readBoard(document);
+const htmlBoard = lichessBoardReader.readBoard(document);
 console.log(htmlBoard);

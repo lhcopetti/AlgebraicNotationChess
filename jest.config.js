@@ -5,5 +5,5 @@ module.exports = {
   collectCoverage: false,
   collectCoverageFrom: [ "src/**/*.{js,ts}" ],
 
-  modulePathIgnorePatterns: [ "<rootDir>/dist/" ]
+  modulePathIgnorePatterns: [ "<rootDir>/dist/", "<rootDir>/build/" ]
 };

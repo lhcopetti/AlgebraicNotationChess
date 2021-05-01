@@ -1,17 +1,22 @@
 
-import CommandListener from 'src/CommandListener';
+import CommandListener from './CommandListener';
+import LichessHtmlBoardReader from './LichessHtmlBoardReader';
+import { ChessBoard } from './chess/core/ChessBoard';
 
 export default class HtmlController {
 
-    document: Document;
+    private document: Document;
 
-    commandDisplay?: HTMLElement;
-    textInput?: HTMLInputElement;
+    private boardReader: LichessHtmlBoardReader;
 
-    listener?: CommandListener;
+    private commandDisplay?: HTMLElement;
+    private textInput?: HTMLInputElement;
 
-    constructor(document: Document) {
+    private listener?: CommandListener;
+
+    constructor(document: Document, boardReader: LichessHtmlBoardReader) {
         this.document = document;
+        this.boardReader = boardReader;
     }
 
     init() {
@@ -34,7 +39,9 @@ export default class HtmlController {
                     return;
 
                 console.log("Command finished: " + command);
-                this.notifyNewCommand(command);
+
+                const board = this.boardReader.readBoard(document);
+                this.notifyNewCommand(command, board);
             }
         });
 
@@ -51,8 +58,8 @@ export default class HtmlController {
         this.listener = listener;
     }
 
-    notifyNewCommand(command: string) {
-        this.listener?.handleCommand(command);
+    notifyNewCommand(command: string, board: ChessBoard) {
+        this.listener?.handleCommand(command, board);
         this.updateCommandDisplay(command);
         this.clearInput();
     }

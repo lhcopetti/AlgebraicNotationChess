@@ -1,4 +1,5 @@
 
+import { ChessBoard } from './chess/core/ChessBoard'
 
 export default class AlgebraicNotation {
 
@@ -8,16 +9,16 @@ export default class AlgebraicNotation {
         this.files = [ "a", "b", "c", "d", "e", "f", "g", "h" ];
     }
 
-    convert(command: string): string {
+    convert(command: string, board: ChessBoard): string {
 
         console.log("Converting algebraic notation: " + command + " to a Lichess API move");
-        const result = this.doConvert(command);
+        const result = this.doConvert(command, board);
         console.log("Command [" + command + "] converted to [" + result + "]");
 
         return result;
     }
 
-    doConvert(command: string): string {
+    doConvert(command: string, board: ChessBoard): string {
 
         const pawnMove = this.isPawnMove(command);
 

@@ -1,5 +1,5 @@
 
-import ChessBoard from './ChessBoard';
+import { ChessBoard } from './chess/core/ChessBoard';
 
 class HtmlPiece {
     classList: string;
@@ -53,8 +53,9 @@ export default class LichessHtmlBoardReader {
         return new HtmlBoardDescriptor(boardHeight, boardWidth, htmlPieces);
     }
 
-    createChessBoard(htmlBoardDescriptor: HtmlBoardDescriptor) {
-        return new ChessBoard(htmlBoardDescriptor.pieces);
+    createChessBoard(htmlBoardDescriptor: HtmlBoardDescriptor): ChessBoard {
+        //throw new Error();
+        return ChessBoard.fromList([]);
     }
 
 }
