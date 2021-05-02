@@ -6,6 +6,7 @@
     "build": "tsc && parcel build ./contentScript.ts ./backgroundScript.ts",
     "test": "npx jest",
     "testc": "npx jest --coverage",
+    "testw": "npx jest --watch",
     "copyPublicToDist": "copyfiles --error --up 1 public/*.* dist/",
     "postbuild": "npm run copyPublicToDist"
   },
