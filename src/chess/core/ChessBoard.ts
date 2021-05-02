@@ -94,6 +94,50 @@ class ChessBoard {
 
         return piece.toString();
     }
+
+    public static defaultStartingPosition(): ChessBoard {
+        const pieces: LocalizedPiece[] = [
+        [ "a2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        [ "b2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        [ "c2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        [ "d2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        [ "e2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        [ "f2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        [ "g2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        [ "h2", ChessPieceType.PAWN, ChessColor.WHITE ],
+
+        [ "a1", ChessPieceType.ROOK     , ChessColor.WHITE ],
+        [ "b1", ChessPieceType.KNIGHT   , ChessColor.WHITE ],
+        [ "c1", ChessPieceType.BISHOP   , ChessColor.WHITE ],
+        [ "d1", ChessPieceType.QUEEN    , ChessColor.WHITE ],
+        [ "e1", ChessPieceType.KING     , ChessColor.WHITE ],
+        [ "f1", ChessPieceType.BISHOP   , ChessColor.WHITE ],
+        [ "g1", ChessPieceType.KNIGHT   , ChessColor.WHITE ],
+        [ "h1", ChessPieceType.ROOK     , ChessColor.WHITE ],
+
+        [ "a7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "b7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "c7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "d7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "e7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "f7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "g7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "h7", ChessPieceType.PAWN, ChessColor.BLACK ],
+
+        [ "a8", ChessPieceType.ROOK     , ChessColor.BLACK ],
+        [ "b8", ChessPieceType.KNIGHT   , ChessColor.BLACK ],
+        [ "c8", ChessPieceType.BISHOP   , ChessColor.BLACK ],
+        [ "d8", ChessPieceType.QUEEN    , ChessColor.BLACK ],
+        [ "e8", ChessPieceType.KING     , ChessColor.BLACK ],
+        [ "f8", ChessPieceType.BISHOP   , ChessColor.BLACK ],
+        [ "g8", ChessPieceType.KNIGHT   , ChessColor.BLACK ],
+        [ "h8", ChessPieceType.ROOK     , ChessColor.BLACK ]
+
+        ];
+
+        return ChessBoard.fromStringList(pieces);
+    }
+
 }
 
 type LocalizedPiece = [ string, ChessPieceType, ChessColor ];

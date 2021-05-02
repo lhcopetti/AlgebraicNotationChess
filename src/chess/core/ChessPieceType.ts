@@ -1,8 +1,12 @@
 
 
 enum ChessPieceType {
-    KING,
-    PAWN
+    PAWN,
+    ROOK,
+    KNIGHT,
+    BISHOP,
+    QUEEN,
+    KING
 };
 
 export default ChessPieceType;

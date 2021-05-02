@@ -29,12 +29,20 @@ export default class ChessPiece {
     }
 
     private pieceTypeToString(): string {
-        
-        if (this.piece == ChessPieceType.KING)
-            return "k";
-        if (this.piece == ChessPieceType.PAWN)
-            return "p";
 
-        throw new Error("ChessPieceType: " + this.piece + " not yet supported");
+        switch(this.piece) {
+            case ChessPieceType.PAWN: 
+                return "p";
+            case ChessPieceType.ROOK: 
+                return "r";
+            case ChessPieceType.KNIGHT: 
+                return "k";
+            case ChessPieceType.BISHOP: 
+                return "b";
+            case ChessPieceType.QUEEN: 
+                return "q";
+            case ChessPieceType.KING: 
+                return "k";
+        }
     }
 }
