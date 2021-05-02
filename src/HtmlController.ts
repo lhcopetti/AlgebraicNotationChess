@@ -1,7 +1,7 @@
 
 import CommandListener from './CommandListener';
 import LichessHtmlBoardReader from './LichessHtmlBoardReader';
-import { ChessBoard } from './chess/core/ChessBoard';
+import ChessGame from './chess/core/ChessGame';
 
 export default class HtmlController {
 
@@ -58,8 +58,8 @@ export default class HtmlController {
         this.listener = listener;
     }
 
-    notifyNewCommand(command: string, board: ChessBoard) {
-        this.listener?.handleCommand(command, board);
+    notifyNewCommand(command: string, game: ChessGame) {
+        this.listener?.handleCommand(command, game);
         this.updateCommandDisplay(command);
         this.clearInput();
     }

@@ -1,5 +1,5 @@
 
-import { ChessBoard } from './chess/core/ChessBoard';
+import ChessGame from './chess/core/ChessGame';
 
 export default class LichessHtmlBoardReader {
 
@@ -8,7 +8,7 @@ export default class LichessHtmlBoardReader {
         const self = this;
         const htmlBoardDescriptor = this.readBoardDescriptor(document);
         console.log(htmlBoardDescriptor);
-        return this.createChessBoard(htmlBoardDescriptor);
+        return this.createChessGame(htmlBoardDescriptor);
     }
 
     readBoardDescriptor(document: Document): string[] {
@@ -28,9 +28,15 @@ export default class LichessHtmlBoardReader {
         return moves;
     }
 
-    createChessBoard(moves: string[]): ChessBoard {
-        console.log(moves);
-        return ChessBoard.fromList([]);
+    createChessGame(moves: string[]): ChessGame {
+        const game = ChessGame.newGame();
+        return this.replayMoves(moves, game);
+    }
+
+    replayMoves(moves: string[], game: ChessGame) {
+        console.log("A");
+        moves.forEach(m => game.playMove(m));
+        return game;
     }
 
 }

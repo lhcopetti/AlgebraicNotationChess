@@ -30,7 +30,7 @@ export default class AlgebraicNotation {
         if (pawnMove != null)
             return pawnMove;
 
-        return "e2e4";
+        throw new Error("Could not convert move: " + command);
     }
 
 

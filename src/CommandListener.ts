@@ -1,6 +1,6 @@
-import { ChessBoard } from './chess/core/ChessBoard'
+import ChessGame from './chess/core/ChessGame'
 
 export default interface CommandListener {
 
-    handleCommand(command: string, board: ChessBoard): void;
+    handleCommand(command: string, board: ChessGame): void;
 }

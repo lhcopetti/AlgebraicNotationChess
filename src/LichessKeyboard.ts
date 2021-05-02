@@ -1,7 +1,7 @@
 
 import LibNotation from './AlgebraicNotation';
 import LichessClient from './LichessAPIClient';
-import { ChessBoard } from './chess/core/ChessBoard';
+import ChessGame from './chess/core/ChessGame';
 
 
 export default class LichessKeyboard {
@@ -16,7 +16,7 @@ export default class LichessKeyboard {
         this.lichessAPIClient = lichessAPIClient;
     }
 
-    handleCommand(command: string, board: ChessBoard) {
+    handleCommand(command: string, game: ChessGame) {
         const gameId = this.gameId;
 
         if (gameId == null) {
@@ -26,7 +26,7 @@ export default class LichessKeyboard {
 
         console.log("The command typed is: " + command);
 
-        const lichessCommand = this.libNotation.convert(command, board);
+        const lichessCommand = this.libNotation.convert(command, game.board, game.turn);
         this.lichessAPIClient.sendMove(gameId, lichessCommand);
     }
 
