@@ -30,6 +30,10 @@ class ChessSquare {
     public get down() {
         return new ChessSquare(this.file, new ChessRank(this.rank.rank - 1));
     }
+
+    public get up() {
+        return new ChessSquare(this.file, new ChessRank(this.rank.rank + 1));
+    }
 }
 
 enum ChessFile {

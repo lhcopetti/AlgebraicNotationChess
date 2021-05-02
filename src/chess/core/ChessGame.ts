@@ -1,11 +1,9 @@
-
 import { ChessBoard } from './ChessBoard';
 import ChessPiece from './ChessPiece';
 import ChessColor from './ChessColor';
 import ChessPieceType from './ChessPieceType';
 import { ChessRank, ChessFile, ChessSquare, chessFileCount } from './ChessSquare';
 import AlgebraicNotation from '../../AlgebraicNotation';
-
 
 
 export default class ChessGame {
@@ -38,7 +36,9 @@ export default class ChessGame {
 
     public playMove(command: string) {
         const lib = new AlgebraicNotation();
-        const move = lib.convertToChessSquare(command, this.board);
+        const move = lib.convertToChessSquare(command, this.board, this.turn);
+
         this._board = this.board.movePiece(move[0], move[1]);
+        this._turn ^= 1;
     }
 };

@@ -31,3 +31,16 @@ describe('Playing moves', function() {
         assert.equal(pieceAtE4?.color, ChessColor.WHITE);
     });
 });
+
+describe('The turn should alternate between white and black', function() {
+
+    it("bobby fischer's favorite move", () => {
+        const game = ChessGame.newGame();
+
+        assert.equal(game.turn, ChessColor.WHITE);
+        game.playMove("e4");
+        assert.equal(game.turn, ChessColor.BLACK);
+        game.playMove("c5");
+        assert.equal(game.turn, ChessColor.WHITE);
+    });
+});
