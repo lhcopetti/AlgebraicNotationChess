@@ -4,6 +4,7 @@ import ChessPiece from './ChessPiece';
 import ChessColor from './ChessColor';
 import ChessPieceType from './ChessPieceType';
 import { ChessRank, ChessFile, ChessSquare, chessFileCount } from './ChessSquare';
+import AlgebraicNotation from '../../AlgebraicNotation';
 
 
 
@@ -23,6 +24,9 @@ export default class ChessGame {
         return new ChessGame(board, turn);
     }
 
+    public getPieceAt(coord: string) {
+        return this.board.getAt(coord);
+    }
 
     public get board() {
         return this._board;
@@ -30,5 +34,11 @@ export default class ChessGame {
 
     public get turn() {
         return this._turn;
+    }
+
+    public playMove(command: string) {
+        const lib = new AlgebraicNotation();
+        const move = lib.convertToChessSquare(command, this.board);
+        this._board = this.board.movePiece(move[0], move[1]);
     }
 };

@@ -16,3 +16,18 @@ describe('ChessGame newGame', function() {
         assert.equal(game.turn, ChessColor.WHITE);
     });
 });
+
+describe('Playing moves', function() {
+
+    it("bobby fischer's favorite move", () => {
+        const game = ChessGame.newGame();
+
+        game.playMove("e4");
+
+        assert.equal(game.getPieceAt("e2"), null);
+
+        const pieceAtE4 = game.getPieceAt("e4");
+        assert.equal(pieceAtE4?.piece, ChessPieceType.PAWN);
+        assert.equal(pieceAtE4?.color, ChessColor.WHITE);
+    });
+});

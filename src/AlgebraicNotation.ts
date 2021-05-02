@@ -4,10 +4,13 @@ import { ChessSquare } from './chess/core/ChessSquare'
 
 export default class AlgebraicNotation {
 
-    files: string[];
+    convertToChessSquare(command: string, board: ChessBoard): [ ChessSquare, ChessSquare ] {
+        const converted = this.convert(command, board);
 
-    constructor() {
-        this.files = [ "a", "b", "c", "d", "e", "f", "g", "h" ];
+        const origin = ChessSquare.fromString(converted.slice(0, 2));
+        const destination = ChessSquare.fromString(converted.slice(2));
+
+        return [ origin, destination ];
     }
 
     convert(command: string, board: ChessBoard): string {

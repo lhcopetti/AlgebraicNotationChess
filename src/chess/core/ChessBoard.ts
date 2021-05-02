@@ -3,12 +3,13 @@ import ChessPiece from './ChessPiece';
 import ChessColor from './ChessColor';
 import ChessPieceType from './ChessPieceType';
 import { ChessRank, ChessFile, ChessSquare, chessFileCount } from './ChessSquare';
+import Arrays from '../../collection/Arrays';
 
 class ChessBoard {
 
-    board: ChessPiece[][];
+    board: (ChessPiece | undefined)[][];
 
-    public constructor(b: ChessPiece[][]) {
+    public constructor(b: (ChessPiece | undefined)[][]) {
         this.board = b;
     }
 
@@ -47,14 +48,35 @@ class ChessBoard {
         return board;
     }
 
-    public getAt(coordinate: string): ChessPiece | null {
-        return this.getAtSquare(ChessSquare.fromString(coordinate));
+    public movePiece(origin: ChessSquare, destination: ChessSquare) {
+
+        const newPieces = Arrays.cloneMatrix(this.board);
+        const newBoard = new ChessBoard(newPieces);
+
+        const pieceToMove = newBoard.getAtSquare(origin);
+        if (null == pieceToMove)
+            throw new Error("No piece to move at: " + origin);
+
+        newBoard.setAtSquare(destination, pieceToMove);
+        newBoard.setAtSquare(origin, undefined);
+        return newBoard;
     }
 
-    public getAtSquare(square: ChessSquare): ChessPiece | null {
+    public getAt(coordinate: string): ChessPiece | undefined {
+        const square = ChessSquare.fromString(coordinate);
+        return this.getAtSquare(square);
+    }
+
+    public getAtSquare(square: ChessSquare): ChessPiece | undefined {
         const file = square.file;
         const rank = square.rank;
         return this.board[ChessRank.rankCount - rank.rank][file];
+    }
+
+    private setAtSquare(square: ChessSquare, value?: ChessPiece) {
+        const file = square.file;
+        const rank = square.rank;
+        this.board[ChessRank.rankCount - rank.rank][file] = value;
     }
 
     public toString(): string {

@@ -55,6 +55,18 @@ a  b  c  d  e  f  g  h`
 
 describe('ChessBoard initialization', function() {
 
+    it('should return undefined when there is no piece at the square', function() {
+        const pieces: LocalizedPiece[] = [];
+
+        const board = ChessBoard.fromStringList(pieces);
+
+        const pieceAtE4 = board.getAt("e4");
+        assert.equal(pieceAtE4, undefined);
+
+        const pieceAtF6 = board.getAt("e6");
+        assert.equal(pieceAtF6, undefined);
+    });
+
     it('a single pawn on e4', function() {
         const pieces: LocalizedPiece[] = [
             [ "e4", ChessPieceType.PAWN, ChessColor.WHITE ]
