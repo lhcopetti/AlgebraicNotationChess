@@ -1,7 +1,7 @@
 import { ChessBoard, LocalizedPiece } from '../../../src/chess/core/ChessBoard';
 import ChessPieceType from '../../../src/chess/core/ChessPieceType';
 import ChessColor from '../../../src/chess/core/ChessColor';
-import { ChessRank, ChessFile, ChessSquare, chessFileCount } from '../../../src/chess/core/ChessSquare';
+import { ChessSquare, files, ranks } from '../../../src/chess/core/ChessSquare';
 
 
 const assert = require('assert');
@@ -73,6 +73,7 @@ describe('ChessBoard initialization', function() {
         ];
 
         const board = ChessBoard.fromStringList(pieces);
+        console.log(board.toString());
 
         const chessPiece = board.getAt("e4");
 

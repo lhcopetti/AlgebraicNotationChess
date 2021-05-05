@@ -1,6 +1,5 @@
-import { ChessFile, ChessRank, ChessSquare } from '../../../src/chess/core/ChessSquare';
+import { ChessSquare, files, ranks } from '../../../src/chess/core/ChessSquare';
 
-const assert = require('assert');
 
 describe('ChessSquare fromString/toString', function() {
 
@@ -8,14 +7,29 @@ describe('ChessSquare fromString/toString', function() {
 
         const square = ChessSquare.fromString("e4");
         const command = square.toString();
-        assert.equal(command, "e4");
+        expect(command).toBe("e4");
     });
 
     it('down should decrement the rank', function() {
-
         const square = ChessSquare.fromString("e4").down;
-        assert.equal(square.toString(), "e3");
+        expect(square.toString()).toBe("e3");
     });
+
+    it('up should increment the rank', function() {
+        const square = ChessSquare.fromString("e7").down;
+        expect(square.toString()).toBe("e6");
+    });
+
+    it('up should decrement the file', function() {
+        const square = ChessSquare.fromString("e7").left;
+        expect(square.toString()).toBe("d7");
+    });
+
+    it('up should increment the file', function() {
+        const square = ChessSquare.fromString("e7").right;
+        expect(square.toString()).toBe("f7");
+    });
+
 });
 
 describe('equality', function() {

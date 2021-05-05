@@ -21,10 +21,12 @@ describe('Will correctly convert first pawn moves', function() {
     });
 
     it('d4', function() {
+
+        console.log(board.toString());
         assert.equal(lib.convert("d4", board, ChessColor.WHITE), "d2d4");
     });
 
-    it('d4', function() {
+    it('e5', function() {
         assert.equal(lib.convert("e5", board, ChessColor.BLACK), "e7e5");
     });
 

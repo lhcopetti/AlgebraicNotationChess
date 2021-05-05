@@ -2,7 +2,7 @@
 import ChessPiece from './ChessPiece';
 import ChessColor from './ChessColor';
 import ChessPieceType from './ChessPieceType';
-import { ChessRank, ChessFile, ChessSquare, chessFileCount } from './ChessSquare';
+import { ChessSquare, files, ranks } from './ChessSquare';
 import Arrays from '../../collection/Arrays';
 
 class ChessBoard {
@@ -27,11 +27,12 @@ class ChessBoard {
     public static fromList(localizedChessPieces: [ChessPiece, ChessSquare][]) {
         const pieces: ChessPiece[][] = this.emptyBoard();
 
-        const rankCount = ChessRank.rankCount;
+        const rankCount = ranks.length;
 
         for (let piece of localizedChessPieces) {
-            const rankIndex = rankCount - piece[1].rank.rank;
-            const fileIndex = piece[1].file;
+            const rankIndex = ranks.length - Number(piece[1].rank);
+            const fileIndex = files.indexOf(piece[1].file);
+
             pieces[rankIndex][fileIndex] = piece[0];
         }
 
@@ -42,7 +43,7 @@ class ChessBoard {
 
         const board = [];
 
-        for (let i = 0; i < ChessRank.rankCount; ++i)
+        for (let i = 0; i < ranks.length; ++i)
             board[i] = [];
 
         return board;
@@ -68,20 +69,22 @@ class ChessBoard {
     }
 
     public getAtSquare(square: ChessSquare): ChessPiece | undefined {
-        const file = square.file;
-        const rank = square.rank;
-        return this.board[ChessRank.rankCount - rank.rank][file];
+        const file = files.indexOf(square.file);
+        const rank = Number(square.rank);
+
+        console.log("File: " + file + " Rank: " + rank + " Square: " + square.toString());
+        return this.board[ranks.length - rank][file];
     }
 
     private setAtSquare(square: ChessSquare, value?: ChessPiece) {
-        const file = square.file;
-        const rank = square.rank;
-        this.board[ChessRank.rankCount - rank.rank][file] = value;
+        const file = files.indexOf(square.file);
+        const rank = +square.rank;
+        this.board[ranks.length - rank][file] = value;
     }
 
     public toString(): string {
-        const rankCount = ChessRank.rankCount;
-        const fileCount = chessFileCount;
+        const rankCount = ranks.length;
+        const fileCount = files.length;
 
         const result: string[] = [];
 
@@ -98,10 +101,10 @@ class ChessBoard {
         }
 
         var fileLine = "";
-        for (let i = 0; i < chessFileCount; ++i) {
-            fileLine += ChessFile[i];
+        for (let i = 0; i < fileCount; ++i) {
+            fileLine += files[i];
 
-            if (i < chessFileCount - 1)
+            if (i < fileCount - 1)
                 fileLine += "  ";
         }
 

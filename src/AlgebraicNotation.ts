@@ -42,6 +42,8 @@ export default class AlgebraicNotation {
         const square = ChessSquare.fromString(command);
         const destination = square.toString();
 
+        console.log("The square: " + square);
+
         const moveBack = (square: ChessSquare) => turn == ChessColor.WHITE ? square.down : square.up;
         var origin = moveBack(square);
 
