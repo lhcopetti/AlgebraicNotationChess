@@ -43,16 +43,26 @@ describe('Conversion of a pawn move in the middle of the board by white', functi
 
 });
 
-describe('Conversion of moves with stacked pawns', function() {
+describe('Conversion of pawn moves with stacked pawns', function() {
 
     const lib = new AlgebraicNotationLibrary();
-    const board = ChessBoard.fromStringList([
+
+    const boardForWhite = ChessBoard.fromStringList([
         [ "f4", ChessPieceType.PAWN, ChessColor.WHITE ],
         [ "f3", ChessPieceType.PAWN, ChessColor.WHITE ]
     ]);
 
-    it('f5', function() {
-        assert.equal("f4f5", lib.convert("f5", board, ChessColor.WHITE));
+    it('f5 for white', function() {
+        assert.equal("f4f5", lib.convert("f5", boardForWhite, ChessColor.WHITE));
+    });
+
+    const boardForBlack = ChessBoard.fromStringList([
+        [ "f7", ChessPieceType.PAWN, ChessColor.BLACK ],
+        [ "f6", ChessPieceType.PAWN, ChessColor.BLACK ]
+    ]);
+
+    it('f5 for black', function() {
+        assert.equal("f6f5", lib.convert("f5", boardForBlack, ChessColor.BLACK));
     });
 
 });

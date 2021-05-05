@@ -18,3 +18,15 @@ describe('ChessSquare fromString/toString', function() {
     });
 });
 
+describe('equality', function() {
+
+    it('same square constructed from string should be equal', function() {
+
+        const lhs = ChessSquare.fromString("e4");
+        const rhs = ChessSquare.fromString("e4");
+        expect(lhs).toEqual(rhs);
+        expect(lhs.equals(rhs)).toBe(true);
+    });
+
+});
+

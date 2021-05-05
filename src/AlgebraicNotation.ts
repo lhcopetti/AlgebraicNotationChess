@@ -50,4 +50,11 @@ export default class AlgebraicNotation {
 
         return origin + destination;
     }
+
+    isKnightMove(command: string, board: ChessBoard, turn: ChessColor): string | null {
+        if (command[0] != "N")
+            return null;
+
+        return null;
+    }
 }

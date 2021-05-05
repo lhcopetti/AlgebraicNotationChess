@@ -34,6 +34,20 @@ class ChessSquare {
     public get up() {
         return new ChessSquare(this.file, new ChessRank(this.rank.rank + 1));
     }
+
+    public get left() {
+        const leftFile = (<any>ChessFile)[this.file - 1];
+        return new ChessSquare(leftFile, new ChessRank(this.rank.rank));
+    }
+
+    public get right() {
+        const leftFile = (<any>ChessFile)[this.file + 1];
+        return new ChessSquare(leftFile, new ChessRank(this.rank.rank));
+    }
+
+    public equals(otherSquare: ChessSquare) {
+        return this.file == otherSquare.file && this.rank.equals(otherSquare.rank);
+    }
 }
 
 enum ChessFile {
@@ -54,12 +68,20 @@ class ChessRank {
         this._rank = rank;
     }
 
+    public static values(): number[] {
+        return [1, 2, 3, 4, 5, 6, 7, 8];
+    }
+
     public static fromString(rank: string) {
         return new ChessRank(+rank);
     }
 
     public get rank() {
         return this._rank;
+    }
+
+    public equals(otherRank: ChessRank): boolean {
+        return this.rank == otherRank.rank;
     }
 
     public static get rankCount() {
