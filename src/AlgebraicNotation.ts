@@ -8,8 +8,8 @@ export default class AlgebraicNotation {
     convertToChessSquare(command: string, board: ChessBoard, turn: ChessColor): [ ChessSquare, ChessSquare ] {
         const converted = this.convert(command, board, turn);
 
-        const origin = ChessSquare.fromString(converted.slice(0, 2));
-        const destination = ChessSquare.fromString(converted.slice(2));
+        const origin = ChessSquare.fromString(converted.slice(0, 2))!;
+        const destination = ChessSquare.fromString(converted.slice(2))!;
 
         return [ origin, destination ];
     }
@@ -39,12 +39,12 @@ export default class AlgebraicNotation {
         if (command.length != 2)
             return null;
 
-        const square = ChessSquare.fromString(command);
+        const square = ChessSquare.fromString(command)!;
         const destination = square.toString();
 
         console.log("The square: " + square);
 
-        const moveBack = (square: ChessSquare) => turn == ChessColor.WHITE ? square.down : square.up;
+        const moveBack = (square: ChessSquare) => turn == ChessColor.WHITE ? square.down! : square.up!;
         var origin = moveBack(square);
 
         if (null == board.getAtSquare(origin))

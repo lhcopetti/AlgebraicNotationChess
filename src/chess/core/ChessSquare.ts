@@ -3,15 +3,19 @@ class ChessSquare {
     private _file: string;
     private _rank: string;
 
-    public constructor(file: string, rank: string) {
+    private constructor(file: string, rank: string) {
         this._file = file;
         this._rank = rank;
     }
 
     public static fromString(square: string) {
         const file = square[0];
-        const rank = square[1];
-        return new ChessSquare(file, rank);
+        const rank = Number(square[1]);
+
+        if (files.indexOf(file) < 0 || ranks.indexOf(rank) < 0)
+            return null;
+
+        return new ChessSquare(file, "" + rank);
     }
 
     public toString(): string {
@@ -26,24 +30,24 @@ class ChessSquare {
         return this._rank;
     }
 
-    public get down() {
-        //const newRank: number = +this.rank;
-        return new ChessSquare(this.file, "" + (Number(this.rank) - 1));
+    public get down(): ChessSquare | null {
+        const newRank = Number(this.rank) - 1;
+        return ChessSquare.fromString(this.file + newRank);
     }
 
-    public get up() {
+    public get up(): ChessSquare | null {
         const newRank = 1 + Number(this.rank);
-        return new ChessSquare(this.file, "" + newRank);
+        return ChessSquare.fromString(this.file + newRank);
     }
 
-    public get left() {
+    public get left(): ChessSquare | null {
         const leftFile = files[files.indexOf(this.file) - 1];
-        return new ChessSquare(leftFile, this.rank);
+        return ChessSquare.fromString(leftFile + this.rank);
     }
 
-    public get right() {
-        const leftFile = files[files.indexOf(this.file) + 1];
-        return new ChessSquare(leftFile, this.rank);
+    public get right(): ChessSquare | null {
+        const rightFile = files[files.indexOf(this.file) + 1];
+        return ChessSquare.fromString(rightFile + this.rank);
     }
 
     public equals(otherSquare: ChessSquare) {

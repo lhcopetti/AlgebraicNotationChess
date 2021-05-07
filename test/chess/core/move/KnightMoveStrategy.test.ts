@@ -14,7 +14,7 @@ describe('ChessBoard toString', function() {
         const board = ChessBoard.fromStringList([
             [ "e4", ChessPieceType.KNIGHT, ChessColor.WHITE ]
         ])
-        const from = ChessSquare.fromString("e4");
+        const from = ChessSquare.fromString("e4")!;
 
         const validMoves = moveStrategy.getValidMoves(from, board);
 
@@ -27,6 +27,21 @@ describe('ChessBoard toString', function() {
             ChessSquare.fromString("f2"),
             ChessSquare.fromString("g5"),
             ChessSquare.fromString("g3"),
+        ]);
+    });
+
+    it('a knight in the corner can only move to two different squares', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "e4", ChessPieceType.KNIGHT, ChessColor.WHITE ]
+        ])
+        const from = ChessSquare.fromString("a1")!;
+
+        const validMoves = moveStrategy.getValidMoves(from, board);
+
+        expect(validMoves).toEqual([
+            ChessSquare.fromString("b3"),
+            ChessSquare.fromString("c2"),
         ]);
     });
 });

@@ -105,7 +105,7 @@ describe('ChessBoard initialization', function() {
 
         const verifier = (coordinate: string, type: ChessPieceType, color: ChessColor) => {
 
-            const square = ChessSquare.fromString(coordinate);
+            const square = ChessSquare.fromString(coordinate)!;
 
             const piece = board.getAtSquare(square);
 

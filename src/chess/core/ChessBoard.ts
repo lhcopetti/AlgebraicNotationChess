@@ -17,7 +17,7 @@ class ChessBoard {
 
         const pieceList: [ ChessPiece, ChessSquare ][] = pieces.map(p => {
                 const piece = new ChessPiece(p[1], p[2]);
-                const square = ChessSquare.fromString(p[0]);
+                const square = ChessSquare.fromString(p[0])!;
                 return [ piece, square ];
             });
 
@@ -64,7 +64,7 @@ class ChessBoard {
     }
 
     public getAt(coordinate: string): ChessPiece | undefined {
-        const square = ChessSquare.fromString(coordinate);
+        const square = ChessSquare.fromString(coordinate)!;
         return this.getAtSquare(square);
     }
 
