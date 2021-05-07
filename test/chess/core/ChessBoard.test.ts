@@ -1,5 +1,6 @@
 import { ChessBoard, LocalizedPiece } from '../../../src/chess/core/ChessBoard';
 import ChessPieceType from '../../../src/chess/core/ChessPieceType';
+import ChessPiece from '../../../src/chess/core/ChessPiece';
 import ChessColor from '../../../src/chess/core/ChessColor';
 import { ChessSquare, files, ranks } from '../../../src/chess/core/ChessSquare';
 
@@ -154,3 +155,18 @@ describe('ChessBoard initialization', function() {
 
 });
 
+describe('getPiecesAt', function() {
+
+    it('returns both the knights from the board', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "b1", ChessPieceType.KNIGHT, ChessColor.WHITE ],
+            [ "g1", ChessPieceType.KNIGHT, ChessColor.WHITE ]
+        ]);
+
+        const piece = new ChessPiece(ChessPieceType.KNIGHT, ChessColor.WHITE);
+        const whiteKnights = board.getPieces(piece).map(p => p.toString());
+
+        expect(whiteKnights).toEqual(expect.arrayContaining([ "b1", "g1" ]));
+    });
+});

@@ -20,6 +20,10 @@ export default class ChessPiece {
         return this._color;
     }
 
+    public equal(piece?: ChessPiece): boolean {
+        return this.piece == piece?.piece && this.color == piece?.color;
+    }
+
     public toString(): string {
 
         const color = this.color == ChessColor.BLACK ? "b" : "w";

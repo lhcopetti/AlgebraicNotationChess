@@ -72,8 +72,25 @@ class ChessBoard {
         const file = files.indexOf(square.file);
         const rank = Number(square.rank);
 
-        console.log("File: " + file + " Rank: " + rank + " Square: " + square.toString());
         return this.board[ranks.length - rank][file];
+    }
+
+    public getPieces(desiredPiece: ChessPiece): ChessSquare [] {
+
+        const pieces = [];
+
+        for (let rank = 0; rank < ranks.length; ++rank) {
+            for (let file = 0; file < files.length; ++file) {
+
+                const square = ChessSquare.fromString(files[file] + ranks[rank])!;
+                const pieceFromBoard = this.getAtSquare(square);
+
+                if (pieceFromBoard != null && desiredPiece.equal(pieceFromBoard))
+                    pieces.push(square);
+            }
+        }
+
+        return pieces;
     }
 
     private setAtSquare(square: ChessSquare, value?: ChessPiece) {

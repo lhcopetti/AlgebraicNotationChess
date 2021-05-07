@@ -68,3 +68,18 @@ describe('Conversion of pawn moves with stacked pawns', function() {
     });
 
 });
+
+describe('Conversion of knight moves', function() {
+
+    const lib = new AlgebraicNotationLibrary();
+
+    it('f5 for white', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "b1", ChessPieceType.KNIGHT, ChessColor.WHITE ]
+        ]);
+
+        assert.equal("b1c3", lib.convert("Nc3", board, ChessColor.WHITE));
+    });
+
+});

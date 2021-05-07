@@ -1,7 +1,10 @@
 
+import ChessPiece from './chess/core/ChessPiece';
+import ChessPieceType from './chess/core/ChessPieceType';
 import { ChessBoard } from './chess/core/ChessBoard'
 import { ChessSquare } from './chess/core/ChessSquare'
 import ChessColor from '../src/chess/core/ChessColor';
+import KnightMoveStrategy from '../src/chess/core/move/KnightMoveStrategy';
 
 export default class AlgebraicNotation {
 
@@ -30,6 +33,10 @@ export default class AlgebraicNotation {
         if (pawnMove != null)
             return pawnMove;
 
+        const knightMove = this.isKnightMove(command, board, turn);
+        if (knightMove != null)
+            return knightMove;
+
         throw new Error("Could not convert move: " + command);
     }
 
@@ -53,10 +60,22 @@ export default class AlgebraicNotation {
         return origin + destination;
     }
 
-    isKnightMove(command: string, board: ChessBoard, turn: ChessColor): string | null {
+    isKnightMove(command: string, board: ChessBoard, turn: ChessColor): string | undefined {
         if (command[0] != "N")
-            return null;
+            return undefined;
 
-        return null;
+        const destination = command.substring(1);
+        const piece = new ChessPiece(ChessPieceType.KNIGHT, turn);
+
+        const originSquareCandidates = board.getPieces(piece);
+        const moveStrategy = new KnightMoveStrategy();
+
+        const origin = originSquareCandidates.find(p => moveStrategy
+                                                            .getValidMoves(p, board)
+                                                            .map(sq => sq.toString())
+                                                            .includes(destination)
+                                                    )?.toString();
+
+        return origin?.concat(destination);
     }
 }
