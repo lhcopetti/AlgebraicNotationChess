@@ -35,6 +35,21 @@ describe('ChessSquare directions', function() {
         expect(square.toString()).toBe("f7");
     });
 
+    it('up should increment to the last available square at the top', function() {
+        const square = ChessSquare.fromString("e7")!.up!;
+        expect(square.toString()).toBe("e8");
+    });
+
+    it('up should increment to the last available square on the left', function() {
+        const square = ChessSquare.fromString("b2")!.left!;
+        expect(square.toString()).toBe("a2");
+    });
+
+    it('up/left should go to the corner of the board', function() {
+        const square = ChessSquare.fromString("b7")!.up!.left!;
+        expect(square.toString()).toBe("a8");
+    });
+
 });
 
 describe('equality', function() {

@@ -5,7 +5,7 @@ import { ChessSquare, files, ranks } from '../../../../src/chess/core/ChessSquar
 import KnightMoveStrategy from '../../../../src/chess/core/move/KnightMoveStrategy';
 
 
-describe('ChessBoard toString', function() {
+describe('Tests for KnightMoveStrategy', function() {
 
     const moveStrategy = new KnightMoveStrategy();
 
