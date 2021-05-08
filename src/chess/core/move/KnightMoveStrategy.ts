@@ -3,6 +3,7 @@ import { ChessBoard, LocalizedPiece } from '../../../../src/chess/core/ChessBoar
 import { ChessSquare } from '../../../../src/chess/core/ChessSquare';
 import ChessColor from '../../../../src/chess/core/ChessColor';
 import ChessPieceType from '../../../../src/chess/core/ChessPieceType';
+import Objects from '../../../../src/object/Objects';
 
 export default class KnightMoveStrategy {
 
@@ -22,11 +23,8 @@ export default class KnightMoveStrategy {
             from.right?.right?.down
         ];
 
-        return knightSquares.filter(KnightMoveStrategy.nonNull);
+        return knightSquares.filter(Objects.nonNull);
     }
 
-    private static nonNull(piece: ChessSquare | null | undefined): piece is ChessSquare {
-        return piece != null;
-    }
 }
 
