@@ -63,6 +63,13 @@ class ChessBoard {
         return newBoard;
     }
 
+    public putPieceAtSquare(piece: ChessPiece, destination: ChessSquare): ChessBoard {
+        const newPieces = Arrays.cloneMatrix(this.board);
+        const newBoard = new ChessBoard(newPieces);
+        newBoard.setAtSquare(destination, piece);
+        return newBoard;
+    }
+
     public getAt(coordinate: string): ChessPiece | undefined {
         const square = ChessSquare.fromString(coordinate)!;
         return this.getAtSquare(square);

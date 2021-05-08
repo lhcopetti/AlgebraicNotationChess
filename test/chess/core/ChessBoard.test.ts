@@ -170,3 +170,19 @@ describe('getPiecesAt', function() {
         expect(whiteKnights).toEqual(expect.arrayContaining([ "b1", "g1" ]));
     });
 });
+
+describe('putPieceAtSquare', function() {
+
+    it('returns a modified board with the piece in place', function() {
+
+        const board = ChessBoard.fromStringList([]);
+
+        const piece = new ChessPiece(ChessPieceType.PAWN, ChessColor.BLACK);
+        const square = ChessSquare.fromString("e4")!;
+
+        const newBoard = board.putPieceAtSquare(piece, square);
+
+        expect(board.getAtSquare(square)).not.toEqual(piece);
+        expect(newBoard.getAtSquare(square)).toEqual(piece);
+    });
+});

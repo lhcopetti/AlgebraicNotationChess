@@ -58,4 +58,7 @@ class ChessSquare {
 const files = [ "a", "b", "c", "d", "e", "f", "g", "h" ];
 const ranks = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
 
-export { ChessSquare, files, ranks }
+const initialRankForWhite = 2;
+const initialRankForBlack = 7;
+
+export { ChessSquare, files, ranks, initialRankForWhite, initialRankForBlack };
