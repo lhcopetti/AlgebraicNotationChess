@@ -26,7 +26,9 @@ export default class LichessKeyboard {
 
         console.log("The command typed is: " + command);
 
-        const lichessCommand = this.libNotation.convert(command, game.board, game.turn);
+        const move = this.libNotation.convert(command, game.board, game.turn);
+        const lichessCommand = move.origin.toString() + move.destination.toString();
+
         this.lichessAPIClient.sendMove(gameId, lichessCommand);
     }
 

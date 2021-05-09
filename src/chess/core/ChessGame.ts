@@ -36,9 +36,9 @@ export default class ChessGame {
 
     public playMove(command: string) {
         const lib = new AlgebraicNotation();
-        const move = lib.convertToChessSquare(command, this.board, this.turn);
+        const move = lib.convert(command, this.board, this.turn);
 
-        this._board = this.board.movePiece(move[0], move[1]);
+        this._board = this.board.movePiece(move.origin, move.destination);
         this._turn ^= 1;
     }
 };

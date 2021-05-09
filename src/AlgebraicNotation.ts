@@ -5,28 +5,21 @@ import { ChessBoard } from './chess/core/ChessBoard'
 import { ChessSquare } from './chess/core/ChessSquare'
 import ChessColor from '../src/chess/core/ChessColor';
 import KnightMoveStrategy from '../src/chess/core/move/KnightMoveStrategy';
+import TwoSquaresChessMove from '../src/chess/notation/TwoSquaresChessMove';
 
 export default class AlgebraicNotation {
 
-    convertToChessSquare(command: string, board: ChessBoard, turn: ChessColor): [ ChessSquare, ChessSquare ] {
-        const converted = this.convert(command, board, turn);
+    convert(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove {
 
-        const origin = ChessSquare.fromString(converted.slice(0, 2))!;
-        const destination = ChessSquare.fromString(converted.slice(2))!;
+        console.log("Converting algebraic notation: " + command + " into a two step square move");
 
-        return [ origin, destination ];
+        const move = this.doConvert(command, board, turn);
+
+        console.log("Command [" + command + "] converted to [" + move + "]");
+        return new TwoSquaresChessMove(move.origin, move.destination);
     }
 
-    convert(command: string, board: ChessBoard, turn: ChessColor): string {
-
-        console.log("Converting algebraic notation: " + command + " to a Lichess API move");
-        const result = this.doConvert(command, board, turn);
-        console.log("Command [" + command + "] converted to [" + result + "]");
-
-        return result;
-    }
-
-    doConvert(command: string, board: ChessBoard, turn: ChessColor): string {
+    doConvert(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove {
 
         const pawnMove = this.isPawnMove(command, board, turn);
 
@@ -41,26 +34,24 @@ export default class AlgebraicNotation {
     }
 
 
-    isPawnMove(command: string, board: ChessBoard, turn: ChessColor): string | null {
+    isPawnMove(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove | null {
 
         if (command.length != 2)
             return null;
 
-        const square = ChessSquare.fromString(command)!;
-        const destination = square.toString();
-
-        console.log("The square: " + square);
+        const destination = ChessSquare.fromString(command)!;
 
         const moveBack = (square: ChessSquare) => turn == ChessColor.WHITE ? square.down! : square.up!;
-        var origin = moveBack(square);
+        var origin = moveBack(destination);
 
         if (null == board.getAtSquare(origin))
             origin = moveBack(origin);
 
-        return origin + destination;
+        return new TwoSquaresChessMove(origin, destination);
     }
 
-    isKnightMove(command: string, board: ChessBoard, turn: ChessColor): string | undefined {
+    isKnightMove(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove | undefined {
+
         if (command[0] != "N")
             return undefined;
 
@@ -73,9 +64,12 @@ export default class AlgebraicNotation {
         const origin = originSquareCandidates.find(p => moveStrategy
                                                             .getValidMoves(p, board)
                                                             .map(sq => sq.toString())
-                                                            .includes(destination)
-                                                    )?.toString();
+                                                            .includes(destination));
 
-        return origin?.concat(destination);
+        if (null == origin)
+            return undefined;
+
+        const destSquare = ChessSquare.fromString(destination)!;
+        return new TwoSquaresChessMove(origin, destSquare);
     }
 }
