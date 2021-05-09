@@ -5,15 +5,13 @@ import { ChessSquare, files, ranks } from '../../../src/chess/core/ChessSquare';
 import ChessGame from '../../../src/chess/core/ChessGame';
 
 
-const assert = require('assert');
-
 describe('ChessGame newGame', function() {
 
     it('initializes a new game correctly', () => {
         const game = ChessGame.newGame();
 
-        assert.equal(game.board.toString(), ChessBoard.defaultStartingPosition().toString());
-        assert.equal(game.turn, ChessColor.WHITE);
+        expect(game.board.toString()).toEqual(ChessBoard.defaultStartingPosition().toString());
+        expect(game.turn).toEqual(ChessColor.WHITE);
     });
 });
 
@@ -24,11 +22,11 @@ describe('Playing moves', function() {
 
         game.playMove("e4");
 
-        assert.equal(game.getPieceAt("e2"), null);
+        expect(game.getPieceAt("e2")).toEqual(undefined);
 
         const pieceAtE4 = game.getPieceAt("e4");
-        assert.equal(pieceAtE4?.piece, ChessPieceType.PAWN);
-        assert.equal(pieceAtE4?.color, ChessColor.WHITE);
+        expect(pieceAtE4?.piece).toEqual(ChessPieceType.PAWN);
+        expect(pieceAtE4?.color).toEqual(ChessColor.WHITE);
     });
 });
 
@@ -37,10 +35,12 @@ describe('The turn should alternate between white and black', function() {
     it("bobby fischer's favorite move", () => {
         const game = ChessGame.newGame();
 
-        assert.equal(game.turn, ChessColor.WHITE);
+        expect(game.turn).toEqual(ChessColor.WHITE);
+
         game.playMove("e4");
-        assert.equal(game.turn, ChessColor.BLACK);
+        expect(game.turn).toEqual(ChessColor.BLACK);
+
         game.playMove("c5");
-        assert.equal(game.turn, ChessColor.WHITE);
+        expect(game.turn).toEqual(ChessColor.WHITE);
     });
 });

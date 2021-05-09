@@ -1,7 +1,5 @@
 import Arrays from '../../src/collection/Arrays';
 
-const assert = require('assert');
-
 describe('clone an array', function() {
 
     it('should return a new array with the same elements', function() {

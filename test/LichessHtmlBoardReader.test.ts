@@ -7,8 +7,6 @@ import LichessHtmlBoardReader from '../src/LichessHtmlBoardReader';
 
 
 
-const assert = require('assert');
-
 describe('LichessHtmlBoardReader tests', function() {
 
     it('Will send all the moves to the chessGame', () => {

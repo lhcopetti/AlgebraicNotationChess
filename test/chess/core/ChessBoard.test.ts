@@ -5,8 +5,6 @@ import ChessColor from '../../../src/chess/core/ChessColor';
 import { ChessSquare, files, ranks } from '../../../src/chess/core/ChessSquare';
 
 
-const assert = require('assert');
-
 describe('ChessBoard toString', function() {
 
     it('should be able to print an empty board', function() {
@@ -15,7 +13,7 @@ describe('ChessBoard toString', function() {
 
         const result = board.toString();
 
-        assert.equal(result,
+        expect(result).toEqual(
 `-- -- -- -- -- -- -- -- 8
 -- -- -- -- -- -- -- -- 7
 -- -- -- -- -- -- -- -- 6
@@ -38,7 +36,7 @@ a  b  c  d  e  f  g  h`
 
         const result = board.toString();
 
-        assert.equal(result,
+        expect(result).toEqual(
 `-- -- -- -- -- -- -- bk 8
 -- -- -- -- -- -- -- -- 7
 -- -- -- -- -- -- -- -- 6
@@ -62,10 +60,10 @@ describe('ChessBoard initialization', function() {
         const board = ChessBoard.fromStringList(pieces);
 
         const pieceAtE4 = board.getAt("e4");
-        assert.equal(pieceAtE4, undefined);
+        expect(pieceAtE4).toEqual(undefined);
 
         const pieceAtF6 = board.getAt("e6");
-        assert.equal(pieceAtF6, undefined);
+        expect(pieceAtF6).toEqual(undefined);
     });
 
     it('a single pawn on e4', function() {
@@ -78,8 +76,8 @@ describe('ChessBoard initialization', function() {
 
         const chessPiece = board.getAt("e4");
 
-        assert.equal(chessPiece?.piece, ChessPieceType.PAWN);
-        assert.equal(chessPiece?.color, ChessColor.WHITE);
+        expect(chessPiece?.piece).toEqual(ChessPieceType.PAWN);
+        expect(chessPiece?.color).toEqual(ChessColor.WHITE);
     });
 
     it('kings at the edge of the board', function() {
@@ -91,12 +89,12 @@ describe('ChessBoard initialization', function() {
         const board = ChessBoard.fromStringList(pieces);
 
         const whiteKing = board.getAt("a1");
-        assert.equal(whiteKing?.piece, ChessPieceType.KING);
-        assert.equal(whiteKing?.color, ChessColor.WHITE);
+        expect(whiteKing?.piece).toEqual(ChessPieceType.KING);
+        expect(whiteKing?.color).toEqual(ChessColor.WHITE);
 
         const blackKing = board.getAt("h8");
-        assert.equal(blackKing?.piece, ChessPieceType.KING);
-        assert.equal(blackKing?.color, ChessColor.BLACK);
+        expect(blackKing?.piece).toEqual(ChessPieceType.KING);
+        expect(blackKing?.color).toEqual(ChessColor.BLACK);
     });
 
 
@@ -110,8 +108,8 @@ describe('ChessBoard initialization', function() {
 
             const piece = board.getAtSquare(square);
 
-            assert.equal(piece?.piece, type);
-            assert.equal(piece?.color, color);
+            expect(piece?.piece).toEqual(type);
+            expect(piece?.color).toEqual(color);
         };
 
 
