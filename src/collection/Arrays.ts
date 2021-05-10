@@ -4,7 +4,10 @@ export default class Arrays {
 
     public static clone<Type>(arr: Type[]): Type[] {
         const result: Type[] = [];
-        arr.forEach(e => result.push(e));
+
+        for (let i = 0; i < arr.length; ++i)
+            result.push(arr[i]);
+
         return result;
     }
 

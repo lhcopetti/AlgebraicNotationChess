@@ -1,16 +1,16 @@
 import { ChessSquare, files, ranks } from '../../../src/chess/core/ChessSquare';
 
 
-describe('ChessSquare fromString/toString', function() {
+describe('ChessSquare creation', function() {
 
     it ('a fromString call with a valid square should return an object', () => {
         expect(ChessSquare.fromString("e4")!).not.toBeNull();
     });
 
     it ('a fromString call with a valid square should return an object', () => {
-
         expect(ChessSquare.fromString("zx48"!)).toBeNull();
     });
+
 });
 
 describe('ChessSquare directions', function() {

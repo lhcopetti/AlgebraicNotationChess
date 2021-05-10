@@ -49,6 +49,29 @@ a  b  c  d  e  f  g  h`
                     );
     });
 
+    it('A board with a pawn moved from e2 to e4', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "e2", ChessPieceType.PAWN, ChessColor.WHITE ],
+        ]);
+
+        const origin = ChessSquare.fromString("e2")!;
+        const destination = ChessSquare.fromString("e4")!;
+        const newBoard = board.movePiece(origin, destination);
+
+        expect(newBoard.toString()).toEqual(
+`-- -- -- -- -- -- -- -- 8
+-- -- -- -- -- -- -- -- 7
+-- -- -- -- -- -- -- -- 6
+-- -- -- -- -- -- -- -- 5
+-- -- -- -- wp -- -- -- 4
+-- -- -- -- -- -- -- -- 3
+-- -- -- -- -- -- -- -- 2
+-- -- -- -- -- -- -- -- 1
+a  b  c  d  e  f  g  h`
+                    );
+    });
+
 });
 
 

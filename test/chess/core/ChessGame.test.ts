@@ -1,4 +1,5 @@
 import { ChessBoard, LocalizedPiece } from '../../../src/chess/core/ChessBoard';
+import ChessPiece from '../../../src/chess/core/ChessPiece';
 import ChessPieceType from '../../../src/chess/core/ChessPieceType';
 import ChessColor from '../../../src/chess/core/ChessColor';
 import { ChessSquare, files, ranks } from '../../../src/chess/core/ChessSquare';
@@ -27,6 +28,19 @@ describe('Playing moves', function() {
         const pieceAtE4 = game.getPieceAt("e4");
         expect(pieceAtE4?.piece).toEqual(ChessPieceType.PAWN);
         expect(pieceAtE4?.color).toEqual(ChessColor.WHITE);
+    });
+
+    it("first pawn moves", () => {
+        const game = ChessGame.newGame();
+
+        game.playMove("e4");
+        expect(game.getPieceAt("e4")).toEqual(new ChessPiece(ChessPieceType.PAWN, ChessColor.WHITE));
+        game.playMove("d5");
+
+        console.log(game.board.toString());
+        game.playMove("e5");
+
+        expect(game.getPieceAt("d5")).toEqual(new ChessPiece(ChessPieceType.PAWN, ChessColor.BLACK));
     });
 });
 

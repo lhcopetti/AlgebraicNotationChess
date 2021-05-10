@@ -23,6 +23,12 @@ describe('clone an array', function() {
         expect(output).not.toEqual(input);
     });
 
+    it('should clone array with elided elements', function() {
+        const input = [ , , , , "def" ];
+        const output = Arrays.clone(input);
+        expect(output).toEqual(input);
+    });
+
 });
 
 describe('clone a matrix', function() {
@@ -57,6 +63,16 @@ describe('clone a matrix', function() {
         input[0][1] = 5;
 
         expect(output).not.toEqual(input);
+    });
+
+    it('clone should work with elided elements', function() {
+        const input = [ 
+            [ 1,  ,  ],
+            [  , 2,  ],
+            [  ,  , 3]
+        ];
+        const output = Arrays.cloneMatrix(input);
+        expect(output).toEqual(input);
     });
 });
 

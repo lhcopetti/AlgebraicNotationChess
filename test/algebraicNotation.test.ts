@@ -27,15 +27,26 @@ describe('Will correctly convert first pawn moves', function() {
 
 });
 
-describe('Conversion of a pawn move in the middle of the board by white', function() {
+describe('Conversion of pawn moves in the middle of the board', function() {
 
     const lib = new AlgebraicNotationLibrary();
-    const board = ChessBoard.fromStringList([
-        [ "f4", ChessPieceType.PAWN, ChessColor.WHITE ]
-    ]);
 
     it('f5', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "f4", ChessPieceType.PAWN, ChessColor.WHITE ]
+        ]);
+
         expect(lib.convert("f5", board, ChessColor.WHITE).toString()).toEqual("f4 -> f5");
+    });
+
+    it('e5', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "e4", ChessPieceType.PAWN, ChessColor.WHITE ]
+        ]);
+
+        expect(lib.convert("e5", board, ChessColor.WHITE).toString()).toEqual("e4 -> e5");
     });
 
 });
