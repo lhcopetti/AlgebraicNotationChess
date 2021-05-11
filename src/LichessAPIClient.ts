@@ -2,9 +2,10 @@
 
 export default class LichessAPIClient {
 
-    token: string;
+    token?: string;
 
-    constructor(token: string) {
+    updateToken(token: string) {
+        console.log("Updating LichessAPIToken to: " + token);
         this.token = token;
     }
 

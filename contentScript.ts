@@ -11,6 +11,7 @@ import LibHtml from './src/HtmlController'
 import LichessKeyboard from './src/LichessKeyboard'
 import LichessAPIClient from './src/LichessAPIClient'
 import LichessHtmlBoardReader from './src/LichessHtmlBoardReader'
+import TokenStorage from './src/chrome/TokenStorage'
 
 console.log("Initializing LichessKeyboard extension");
 
@@ -18,11 +19,15 @@ const lichessBoardReader = new LichessHtmlBoardReader();
 const htmlController = new LibHtml(document, lichessBoardReader);
 const libNotation = new LibNotation();
 
-const token = "eNbZ8vaMfceKlXUk";
-const lichessAPIClient = new LichessAPIClient(token);
+const lichessAPIClient = new LichessAPIClient();
+const tokenStorage = new TokenStorage();
 
 const lichessKeyboard = new LichessKeyboard(libNotation, lichessAPIClient);
 
+tokenStorage.addTokenChangedListener(newToken => {
+    console.log("TokenChangedListener called with: " + newToken);
+    lichessAPIClient.updateToken(newToken);
+});
 
 htmlController.addListener(lichessKeyboard);
 
@@ -39,3 +44,6 @@ setTimeout(() => {
    const htmlBoard = lichessBoardReader.readBoard(document);
    console.log(htmlBoard);
 }, 1000);
+
+
+tokenStorage.getToken().then(token => lichessAPIClient.updateToken(token));
