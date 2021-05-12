@@ -89,3 +89,18 @@ describe('Conversion of knight moves', function() {
     });
 
 });
+
+describe('Conversion of bishop moves', function() {
+
+    const lib = new AlgebraicNotationLibrary();
+
+    it('Be2 for white', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "f1", ChessPieceType.BISHOP, ChessColor.WHITE ]
+        ]);
+
+        expect(lib.convert("Be2", board, ChessColor.WHITE).toString()).toEqual("f1 -> e2");
+    });
+
+});

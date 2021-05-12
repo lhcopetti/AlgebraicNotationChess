@@ -5,9 +5,13 @@ import { ChessBoard } from './chess/core/ChessBoard'
 import { ChessSquare } from './chess/core/ChessSquare'
 import ChessColor from '../src/chess/core/ChessColor';
 
-import ChessMoveStrategy from '../src/chess/core/move/PawnMoveStrategy';
+import { ChessMoveStrategy } from '../src/chess/core/move/ChessMoveStrategy';
 import PawnMoveStrategy from '../src/chess/core/move/PawnMoveStrategy';
+import RookMoveStrategy from '../src/chess/core/move/RookMoveStrategy';
 import KnightMoveStrategy from '../src/chess/core/move/KnightMoveStrategy';
+import BishopMoveStrategy from '../src/chess/core/move/BishopMoveStrategy';
+import QueenMoveStrategy from '../src/chess/core/move/QueenMoveStrategy';
+import KingMoveStrategy from '../src/chess/core/move/KingMoveStrategy';
 import TwoSquaresChessMove from '../src/chess/notation/TwoSquaresChessMove';
 
 class ParseResult {
@@ -86,13 +90,17 @@ export default class AlgebraicNotation {
 
         const moves = new Map<number, ChessMoveStrategy>([
             [ ChessPieceType.PAWN, new PawnMoveStrategy() ],
-            [ ChessPieceType.KNIGHT, new KnightMoveStrategy() ]
+            [ ChessPieceType.ROOK, new RookMoveStrategy() ],
+            [ ChessPieceType.KNIGHT, new KnightMoveStrategy() ],
+            [ ChessPieceType.BISHOP, new BishopMoveStrategy() ],
+            [ ChessPieceType.QUEEN, new QueenMoveStrategy() ],
+            [ ChessPieceType.KING, new KingMoveStrategy() ]
         ]);
 
         const move = moves.get(piece);
 
         if (null == move)
-            throw new Error("Could not find move for piece: " + piece);
+            throw new Error("Could not find move strategy for piece: " + piece);
 
         return move;
     }

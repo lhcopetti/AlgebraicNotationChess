@@ -13,7 +13,10 @@ export default class BishopMoveStrategy {
         const bottomLeft = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.down?.left);
         const bottomRight = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.down?.right);
 
-        return [...topLeft, ...topRight, ...bottomLeft, ...bottomRight];
+        const result = [...topLeft, ...topRight, ...bottomLeft, ...bottomRight];
+
+        console.log(result);
+        return result;
     }
 }
 

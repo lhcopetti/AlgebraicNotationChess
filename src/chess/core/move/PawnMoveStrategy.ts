@@ -3,8 +3,9 @@ import { ChessBoard, LocalizedPiece } from '../../../../src/chess/core/ChessBoar
 import { ChessSquare, initialRankForWhite, initialRankForBlack } from '../../../../src/chess/core/ChessSquare';
 import ChessColor from '../../../../src/chess/core/ChessColor';
 import MoveStrategyHelper from '../../../../src/chess/core/move/MoveStrategyHelper';
+import { ChessMoveStrategy } from '../../../../src/chess/core/move/ChessMoveStrategy';
 
-export default class PawnMoveStrategy {
+export default class PawnMoveStrategy implements ChessMoveStrategy {
 
     getValidMoves(from: ChessSquare, board: ChessBoard): ChessSquare[] {
 
