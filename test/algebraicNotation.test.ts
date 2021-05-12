@@ -75,6 +75,21 @@ describe('Conversion of pawn moves with stacked pawns', function() {
 
 });
 
+describe('Conversion of pawn captures', function() {
+
+    const lib = new AlgebraicNotationLibrary();
+
+    it('exd5', function() {
+        const board = ChessBoard.fromStringList([
+            [ "e4", ChessPieceType.PAWN, ChessColor.WHITE ],
+            [ "d5", ChessPieceType.PAWN, ChessColor.WHITE ]
+        ]);
+
+        expect(lib.convert("exd5", board, ChessColor.WHITE).toString()).toEqual("e4 -> d5");
+    });
+
+});
+
 describe('Conversion of knight moves', function() {
 
     const lib = new AlgebraicNotationLibrary();

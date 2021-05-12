@@ -4,6 +4,8 @@ import { ChessPieceType, pieceFromString } from './chess/core/ChessPieceType';
 import { ChessBoard } from './chess/core/ChessBoard'
 import { ChessSquare } from './chess/core/ChessSquare'
 import ChessColor from '../src/chess/core/ChessColor';
+import CommandParser from './chess/notation/CommandParser';
+import ParseResult from './chess/notation/ParseResult';
 
 import { ChessMoveStrategy } from '../src/chess/core/move/ChessMoveStrategy';
 import PawnMoveStrategy from '../src/chess/core/move/PawnMoveStrategy';
@@ -14,29 +16,6 @@ import QueenMoveStrategy from '../src/chess/core/move/QueenMoveStrategy';
 import KingMoveStrategy from '../src/chess/core/move/KingMoveStrategy';
 import TwoSquaresChessMove from '../src/chess/notation/TwoSquaresChessMove';
 
-class ParseResult {
-    _destination: string;
-    _isCapture: boolean = false;
-    _piece: ChessPieceType;
-
-    constructor(destination: string, isCapture: boolean, piece: ChessPieceType) {
-        this._destination = destination;
-        this._isCapture = isCapture;
-        this._piece = piece;
-    }
-
-    public get destination() {
-        return this._destination;
-    }
-
-    public get piece() {
-        return this._piece;
-    }
-
-    public get isCapture() {
-        return this._isCapture;
-    }
-};
 
 export default class AlgebraicNotation {
 
@@ -52,39 +31,37 @@ export default class AlgebraicNotation {
 
     doConvert(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove {
 
-        const parsedCommand = this.parseCommand(command);
+        const parseResult = new CommandParser().parse(command, turn);
 
-        const moveStrategy = this.getMoveStrategy(parsedCommand.piece);
-
-        const targetPiece = new ChessPiece(parsedCommand.piece, turn);
-        const pieceCandidates = board.getPieces(targetPiece);
-
-        const origin = pieceCandidates.find(p => moveStrategy
-                                            .getValidMoves(p, board)
-                                            .map(sq => sq.toString())
-                                            .includes(parsedCommand.destination));
+        const destination = ChessSquare.fromString(parseResult.destination)!;
+        const origin = this.computeOrigin(parseResult, board, turn);
 
         if (null == origin)
             throw new Error("Could not convert: " + command + " successfully");
 
-        const destSquare = ChessSquare.fromString(parsedCommand.destination)!;
-        return new TwoSquaresChessMove(origin, destSquare);
+        return new TwoSquaresChessMove(origin, destination);
     }
 
-    parseCommand(command: string): ParseResult {
+    private computeOrigin(parsed: ParseResult, board: ChessBoard, turn: ChessColor): ChessSquare | undefined {
 
-        if (command.length == 2)
-            return new ParseResult(command, false, ChessPieceType.PAWN);
+        if (parsed.origin != null)
+            return ChessSquare.fromString(parsed.origin)!;
 
-        if (command.length == 3) {
-            const piece = pieceFromString(command[0]);
-            const destination = command.substring(1)
-            return new ParseResult(destination, false, piece);
-        }
-
-        throw Error("Could not parse command: " + command);
+        return this.computeValidOrigin(parsed, board, turn);
     }
 
+    private computeValidOrigin(parsed: ParseResult, board: ChessBoard, turn: ChessColor): ChessSquare | undefined {
+
+        const moveStrategy = this.getMoveStrategy(parsed.piece);
+
+        const targetPiece = new ChessPiece(parsed.piece, turn);
+        const pieceCandidates = board.getPieces(targetPiece);
+
+        return pieceCandidates.find(p => moveStrategy
+                                            .getValidMoves(p, board)
+                                            .map(sq => sq.toString())
+                                            .includes(parsed.destination));
+    }
 
     getMoveStrategy(piece: ChessPieceType): ChessMoveStrategy {
 
