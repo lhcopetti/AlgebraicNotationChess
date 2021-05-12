@@ -1,11 +1,38 @@
 
 import ChessPiece from './chess/core/ChessPiece';
-import ChessPieceType from './chess/core/ChessPieceType';
+import { ChessPieceType, pieceFromString } from './chess/core/ChessPieceType';
 import { ChessBoard } from './chess/core/ChessBoard'
 import { ChessSquare } from './chess/core/ChessSquare'
 import ChessColor from '../src/chess/core/ChessColor';
+
+import ChessMoveStrategy from '../src/chess/core/move/PawnMoveStrategy';
+import PawnMoveStrategy from '../src/chess/core/move/PawnMoveStrategy';
 import KnightMoveStrategy from '../src/chess/core/move/KnightMoveStrategy';
 import TwoSquaresChessMove from '../src/chess/notation/TwoSquaresChessMove';
+
+class ParseResult {
+    _destination: string;
+    _isCapture: boolean = false;
+    _piece: ChessPieceType;
+
+    constructor(destination: string, isCapture: boolean, piece: ChessPieceType) {
+        this._destination = destination;
+        this._isCapture = isCapture;
+        this._piece = piece;
+    }
+
+    public get destination() {
+        return this._destination;
+    }
+
+    public get piece() {
+        return this._piece;
+    }
+
+    public get isCapture() {
+        return this._isCapture;
+    }
+};
 
 export default class AlgebraicNotation {
 
@@ -21,16 +48,53 @@ export default class AlgebraicNotation {
 
     doConvert(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove {
 
-        const pawnMove = this.isPawnMove(command, board, turn);
+        const parsedCommand = this.parseCommand(command);
 
-        if (pawnMove != null)
-            return pawnMove;
+        const moveStrategy = this.getMoveStrategy(parsedCommand.piece);
 
-        const knightMove = this.isKnightMove(command, board, turn);
-        if (knightMove != null)
-            return knightMove;
+        const targetPiece = new ChessPiece(parsedCommand.piece, turn);
+        const pieceCandidates = board.getPieces(targetPiece);
 
-        throw new Error("Could not convert move: " + command);
+        const origin = pieceCandidates.find(p => moveStrategy
+                                            .getValidMoves(p, board)
+                                            .map(sq => sq.toString())
+                                            .includes(parsedCommand.destination));
+
+        if (null == origin)
+            throw new Error("Could not convert: " + command + " successfully");
+
+        const destSquare = ChessSquare.fromString(parsedCommand.destination)!;
+        return new TwoSquaresChessMove(origin, destSquare);
+    }
+
+    parseCommand(command: string): ParseResult {
+
+        if (command.length == 2)
+            return new ParseResult(command, false, ChessPieceType.PAWN);
+
+        if (command.length == 3) {
+            const piece = pieceFromString(command[0]);
+            const destination = command.substring(1)
+            return new ParseResult(destination, false, piece);
+        }
+
+        throw Error("Could not parse command: " + command);
+    }
+
+
+    getMoveStrategy(piece: ChessPieceType): ChessMoveStrategy {
+
+        const moves = new Map<number, ChessMoveStrategy>([
+            [ ChessPieceType.PAWN, new PawnMoveStrategy() ],
+            [ ChessPieceType.KNIGHT, new KnightMoveStrategy() ]
+        ]);
+
+        const move = moves.get(piece);
+
+        if (null == move)
+            throw new Error("Could not find move for piece: " + piece);
+
+        return move;
     }
 
 

@@ -1,7 +1,6 @@
 import { ChessBoard } from './ChessBoard';
 import ChessPiece from './ChessPiece';
 import ChessColor from './ChessColor';
-import ChessPieceType from './ChessPieceType';
 import { ChessSquare, files, ranks } from './ChessSquare';
 import AlgebraicNotation from '../../AlgebraicNotation';
 

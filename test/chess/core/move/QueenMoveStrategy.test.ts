@@ -1,5 +1,4 @@
 import { ChessBoard, LocalizedPiece } from '../../../../src/chess/core/ChessBoard';
-import ChessPieceType from '../../../../src/chess/core/ChessPieceType';
 import ChessColor from '../../../../src/chess/core/ChessColor';
 import { ChessSquare, files, ranks } from '../../../../src/chess/core/ChessSquare';
 import QueenMoveStrategy from '../../../../src/chess/core/move/QueenMoveStrategy';

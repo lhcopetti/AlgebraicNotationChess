@@ -1,7 +1,7 @@
 import AlgebraicNotationLibrary from '../src/AlgebraicNotation';
 import { ChessBoard } from '../src/chess/core/ChessBoard';
 import ChessColor from '../src/chess/core/ChessColor';
-import ChessPieceType from '../src/chess/core/ChessPieceType';
+import { ChessPieceType } from '../src/chess/core/ChessPieceType';
 
 
 describe('Will correctly convert first pawn moves', function() {

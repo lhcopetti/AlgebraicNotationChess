@@ -1,7 +1,3 @@
-import AlgebraicNotationLibrary from '../src/AlgebraicNotation';
-import { ChessBoard } from '../src/chess/core/ChessBoard';
-import ChessColor from '../src/chess/core/ChessColor';
-import ChessPieceType from '../src/chess/core/ChessPieceType';
 import ChessGame from '../src/chess/core/ChessGame';
 import LichessHtmlBoardReader from '../src/LichessHtmlBoardReader';
 

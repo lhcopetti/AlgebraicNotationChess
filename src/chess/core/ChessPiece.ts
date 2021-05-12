@@ -1,5 +1,5 @@
 
-import ChessPieceType from './ChessPieceType';
+import { ChessPieceType } from './ChessPieceType';
 import ChessColor from './ChessColor';
 
 export default class ChessPiece {

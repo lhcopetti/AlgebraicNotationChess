@@ -1,7 +1,7 @@
 
 import ChessPiece from './ChessPiece';
 import ChessColor from './ChessColor';
-import ChessPieceType from './ChessPieceType';
+import { ChessPieceType } from './ChessPieceType';
 import { ChessSquare, files, ranks } from './ChessSquare';
 import Arrays from '../../collection/Arrays';
 
