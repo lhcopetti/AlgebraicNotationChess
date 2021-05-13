@@ -105,6 +105,22 @@ describe('Conversion of knight moves', function() {
 
 });
 
+describe('Conversion of knight captures', function() {
+
+    const lib = new AlgebraicNotationLibrary();
+
+    it('Nxd4', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "d4", ChessPieceType.PAWN, ChessColor.BLACK ],
+            [ "f3", ChessPieceType.KNIGHT, ChessColor.WHITE ]
+        ]);
+
+        expect(lib.convert("Nxd4", board, ChessColor.WHITE).toString()).toEqual("f3 -> d4");
+    });
+
+});
+
 describe('Conversion of bishop moves', function() {
 
     const lib = new AlgebraicNotationLibrary();
@@ -116,6 +132,22 @@ describe('Conversion of bishop moves', function() {
         ]);
 
         expect(lib.convert("Be2", board, ChessColor.WHITE).toString()).toEqual("f1 -> e2");
+    });
+
+});
+
+describe('Conversion of bishop captures', function() {
+
+    const lib = new AlgebraicNotationLibrary();
+
+    it('Bxc6', function() {
+
+        const board = ChessBoard.fromStringList([
+            [ "c6", ChessPieceType.KNIGHT, ChessColor.BLACK ],
+            [ "b5", ChessPieceType.BISHOP, ChessColor.WHITE ]
+        ]);
+
+        expect(lib.convert("Bxc6", board, ChessColor.WHITE).toString()).toEqual("b5 -> c6");
     });
 
 });

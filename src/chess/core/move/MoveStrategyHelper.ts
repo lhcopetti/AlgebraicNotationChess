@@ -14,13 +14,24 @@ export default class MoveStrategyHelper {
 
     ) : ChessSquare[] {
 
-
         let currentSquare = direction(from);
         const validMoves = [];
 
         let limitCounter = 0;
 
-        while(null != currentSquare && null == board.getAtSquare(currentSquare)) {
+        const originPiece = board.getAtSquare(from);
+
+        while(null != currentSquare) {
+
+            const piece = board.getAtSquare(currentSquare);
+
+            if (null != piece) {
+                if (piece.color != originPiece?.color)
+                    validMoves.push(currentSquare);
+
+                break;
+            }
+
             validMoves.push(currentSquare);
             currentSquare = direction(currentSquare);
             limitCounter++;

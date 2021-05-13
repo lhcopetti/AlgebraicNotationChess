@@ -82,43 +82,4 @@ export default class AlgebraicNotation {
         return move;
     }
 
-
-    isPawnMove(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove | null {
-
-        if (command.length != 2)
-            return null;
-
-        const destination = ChessSquare.fromString(command)!;
-
-        const moveBack = (square: ChessSquare) => turn == ChessColor.WHITE ? square.down! : square.up!;
-        var origin = moveBack(destination);
-
-        if (null == board.getAtSquare(origin))
-            origin = moveBack(origin);
-
-        return new TwoSquaresChessMove(origin, destination);
-    }
-
-    isKnightMove(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove | undefined {
-
-        if (command[0] != "N")
-            return undefined;
-
-        const destination = command.substring(1);
-        const piece = new ChessPiece(ChessPieceType.KNIGHT, turn);
-
-        const originSquareCandidates = board.getPieces(piece);
-        const moveStrategy = new KnightMoveStrategy();
-
-        const origin = originSquareCandidates.find(p => moveStrategy
-                                                            .getValidMoves(p, board)
-                                                            .map(sq => sq.toString())
-                                                            .includes(destination));
-
-        if (null == origin)
-            return undefined;
-
-        const destSquare = ChessSquare.fromString(destination)!;
-        return new TwoSquaresChessMove(origin, destSquare);
-    }
 }

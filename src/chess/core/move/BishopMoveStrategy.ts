@@ -15,7 +15,6 @@ export default class BishopMoveStrategy {
 
         const result = [...topLeft, ...topRight, ...bottomLeft, ...bottomRight];
 
-        console.log(result);
         return result;
     }
 }
