@@ -151,3 +151,29 @@ describe('Conversion of bishop captures', function() {
     });
 
 });
+
+describe('Conversion of castle move', function() {
+
+    const lib = new AlgebraicNotationLibrary();
+
+    it('long castle', function() {
+        const board = ChessBoard.fromStringList([]);
+        expect(lib.convert("O-O-O", board, ChessColor.WHITE).toString()).toEqual("e1 -> c1");
+    });
+
+    it('short castle', function() {
+        const board = ChessBoard.fromStringList([]);
+        expect(lib.convert("O-O", board, ChessColor.WHITE).toString()).toEqual("e1 -> g1");
+    });
+
+    it('long castle for black', function() {
+        const board = ChessBoard.fromStringList([]);
+        expect(lib.convert("O-O-O", board, ChessColor.BLACK).toString()).toEqual("e8 -> c8");
+    });
+
+    it('short castle for black', function() {
+        const board = ChessBoard.fromStringList([]);
+        expect(lib.convert("O-O", board, ChessColor.BLACK).toString()).toEqual("e8 -> g8");
+    });
+
+});

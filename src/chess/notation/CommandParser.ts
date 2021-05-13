@@ -9,6 +9,12 @@ export default class CommandParser {
 
     public parse(command: string, turn: ChessColor): ParseResult {
 
+        let result;
+
+        if (result = this.parseCastle(command, turn)) {
+            return result;
+        }
+
         if (command.length == 2)
             return new ParseResult(undefined, command, false, ChessPieceType.PAWN);
 
@@ -18,11 +24,20 @@ export default class CommandParser {
             return new ParseResult(undefined, destination, false, piece);
         }
 
-        let result;
         if (result = this.parseCapture(command, turn))
             return result;
 
         throw Error("Could not parse command: " + command);
+    }
+
+    private parseCastle(command: string, turn: ChessColor): ParseResult | undefined {
+        const rank = turn == ChessColor.WHITE ? "1" : "8";
+
+        if (command == "O-O-O")
+            return new ParseResult("e" + rank, "c" + rank, false, ChessPieceType.KING);
+
+        if (command == "O-O")
+            return new ParseResult("e" + rank, "g" + rank, false, ChessPieceType.KING);
     }
 
     private parseCapture(command: string, turn: ChessColor): ParseResult | undefined {
