@@ -1,14 +1,18 @@
 
 import { ChessSquare } from '../core/ChessSquare';
+import { ChessPieceType } from '../core/ChessPieceType';
 
-export default class TwoSquaresChessMove {
+export default class MoveResult {
 
     _origin: ChessSquare;
     _destination: ChessSquare;
 
-    public constructor(origin: ChessSquare, destination: ChessSquare) {
+    _promotion?: ChessPieceType;
+
+    public constructor(origin: ChessSquare, destination: ChessSquare, promotion?: ChessPieceType) {
         this._origin = origin;
         this._destination = destination;
+        this._promotion = promotion;
     }
 
     public get origin() {
@@ -17,6 +21,10 @@ export default class TwoSquaresChessMove {
 
     public get destination() {
         return this._destination;
+    }
+
+    public get promotion() {
+        return this._promotion;
     }
 
     public toString(): string {

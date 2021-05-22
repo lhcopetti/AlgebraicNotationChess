@@ -37,10 +37,23 @@ describe('Playing moves', function() {
         expect(game.getPieceAt("e4")).toEqual(new ChessPiece(ChessPieceType.PAWN, ChessColor.WHITE));
         game.playMove("d5");
 
-        console.log(game.board.toString());
         game.playMove("e5");
 
         expect(game.getPieceAt("d5")).toEqual(new ChessPiece(ChessPieceType.PAWN, ChessColor.BLACK));
+    });
+
+    it("white pawn promotion on f8", () => {
+
+        const board = ChessBoard.fromStringList([
+            [ "g7", ChessPieceType.PAWN, ChessColor.WHITE ],
+            [ "f8", ChessPieceType.BISHOP, ChessColor.BLACK ],
+        ]);
+
+        const game = ChessGame.newGameFromPosition(board, ChessColor.WHITE);
+        game.playMove("gxf8=Q+");
+
+        expect(game.getPieceAt("f8")).toEqual(new ChessPiece(ChessPieceType.QUEEN, ChessColor.WHITE));
+        expect(game.getPieceAt("g7")).toEqual(undefined);
     });
 });
 

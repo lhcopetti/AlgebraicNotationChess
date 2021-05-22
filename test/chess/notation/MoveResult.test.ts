@@ -1,15 +1,15 @@
 import { ChessSquare } from '../../../src/chess/core/ChessSquare';
-import TwoSquaresChessMove from '../../../src/chess/notation/TwoSquaresChessMove';
+import MoveResult from '../../../src/chess/notation/MoveResult';
 
 
-describe('Tests for TwoSquaresChessMove notation', function() {
+describe('Tests for MoveResult notation', function() {
 
     it('toString', function() {
 
         const origin = ChessSquare.fromString("e2")!;
         const destination = ChessSquare.fromString("e4")!;
 
-        const move = new TwoSquaresChessMove(origin, destination);
+        const move = new MoveResult(origin, destination);
 
         expect(move.toString()).toBe("e2 -> e4");
     });

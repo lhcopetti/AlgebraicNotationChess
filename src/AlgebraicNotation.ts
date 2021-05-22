@@ -14,32 +14,37 @@ import KnightMoveStrategy from '../src/chess/core/move/KnightMoveStrategy';
 import BishopMoveStrategy from '../src/chess/core/move/BishopMoveStrategy';
 import QueenMoveStrategy from '../src/chess/core/move/QueenMoveStrategy';
 import KingMoveStrategy from '../src/chess/core/move/KingMoveStrategy';
-import TwoSquaresChessMove from '../src/chess/notation/TwoSquaresChessMove';
+import MoveResult from '../src/chess/notation/MoveResult';
 
 
 export default class AlgebraicNotation {
 
-    convert(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove {
+    convert(command: string, board: ChessBoard, turn: ChessColor): MoveResult {
 
         console.log("Converting algebraic notation: " + command + " into a two step square move");
 
-        const move = this.doConvert(command, board, turn);
+        const cleanCommand = command.replace(/[+#]/, "");
 
-        console.log("Command [" + command + "] converted to [" + move + "]");
-        return new TwoSquaresChessMove(move.origin, move.destination);
+        const move = this.doConvert(cleanCommand, board, turn);
+
+        console.log("Command [" + cleanCommand + "] converted to [" + move + "]");
+        return move;
     }
 
-    doConvert(command: string, board: ChessBoard, turn: ChessColor): TwoSquaresChessMove {
+    doConvert(command: string, board: ChessBoard, turn: ChessColor): MoveResult {
 
         const parseResult = new CommandParser().parse(command, turn);
 
         const destination = ChessSquare.fromString(parseResult.destination)!;
         const origin = this.computeOrigin(parseResult, board, turn);
 
-        if (null == origin)
+        if (null == origin) {
+            console.log("The current board is: ");
+            console.log(board.toString());
             throw new Error("Could not convert: " + command + " successfully");
+        }
 
-        return new TwoSquaresChessMove(origin, destination);
+        return new MoveResult(origin, destination, parseResult.promotion);
     }
 
     private computeOrigin(parsed: ParseResult, board: ChessBoard, turn: ChessColor): ChessSquare | undefined {

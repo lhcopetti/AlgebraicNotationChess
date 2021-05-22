@@ -1,8 +1,10 @@
 import { ChessBoard } from './ChessBoard';
 import ChessPiece from './ChessPiece';
+import { ChessPieceType } from './ChessPieceType';
 import ChessColor from './ChessColor';
 import { ChessSquare, files, ranks } from './ChessSquare';
 import AlgebraicNotation from '../../AlgebraicNotation';
+import MoveResult from '../../chess/notation/MoveResult';
 
 
 export default class ChessGame {
@@ -21,6 +23,10 @@ export default class ChessGame {
         return new ChessGame(board, turn);
     }
 
+    static newGameFromPosition(board: ChessBoard, turn: ChessColor) {
+        return new ChessGame(board, turn);
+    }
+
     public getPieceAt(coord: string) {
         return this.board.getAt(coord);
     }
@@ -36,8 +42,23 @@ export default class ChessGame {
     public playMove(command: string) {
         const lib = new AlgebraicNotation();
         const move = lib.convert(command, this.board, this.turn);
-
         this._board = this.board.movePiece(move.origin, move.destination);
+
+        this.verifyPromotion(move);
+
         this._turn ^= 1;
+    }
+
+    private verifyPromotion(move: MoveResult) {
+        if (!move.promotion)
+            return;
+
+        const type = this.board.getAtSquare(move.destination)!.piece;
+        if (type != ChessPieceType.PAWN)
+            return;
+
+        const color = this.board.getAtSquare(move.destination)!.color;
+        const piece = new ChessPiece(move.promotion, color);
+        this._board = this.board.putPieceAtSquare(piece, move.destination);
     }
 };
