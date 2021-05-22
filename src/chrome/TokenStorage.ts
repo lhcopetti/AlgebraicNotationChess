@@ -1,8 +1,8 @@
 export default class TokenStorage {
     private tokenKey: string = 'lichessAPIToken';
 
-    public static getToken(): Promise<string> {
-        const promise: Promise<string> = new Promise((resolve) => {
+    public getToken(): Promise<string> {
+        const promise: Promise<string> = new Promise((resolve, reject) => {
             chrome.storage.sync.get(null, (item) => {
                 resolve(item.lichessAPIToken);
             });
@@ -11,7 +11,7 @@ export default class TokenStorage {
         return promise;
     }
 
-    public static setToken(token: string) {
+    public setToken(token: string) {
         const obj = {
             lichessAPIToken: token,
         };
@@ -20,7 +20,7 @@ export default class TokenStorage {
         console.log(`Token with value: [${token}] saved`);
     }
 
-    public static addTokenChangedListener(listener: (newToken: string) => void) {
+    public addTokenChangedListener(listener: (newToken: string) => void) {
         chrome.storage.onChanged.addListener((changes, area) => {
             console.log('Chrome storage changed event: ');
             console.log(changes);

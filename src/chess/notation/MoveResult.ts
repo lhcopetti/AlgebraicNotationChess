@@ -10,10 +10,7 @@ export default class MoveResult {
 
     _capture?: boolean;
 
-    public constructor(origin: ChessSquare,
-        destination: ChessSquare,
-        promotion?: ChessPieceType,
-        capture?: boolean) {
+    public constructor(origin: ChessSquare, destination: ChessSquare, promotion?: ChessPieceType, capture?: boolean) {
         this._origin = origin;
         this._destination = destination;
         this._promotion = promotion;
