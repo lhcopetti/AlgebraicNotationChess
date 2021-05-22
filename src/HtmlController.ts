@@ -59,9 +59,9 @@ export default class HtmlController {
     }
 
     notifyNewCommand(command: string, game: ChessGame) {
+        this.clearInput();
         this.listener?.handleCommand(command, game);
         this.updateCommandDisplay(command);
-        this.clearInput();
     }
 
     clearInput() {
