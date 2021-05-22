@@ -71,3 +71,28 @@ describe('The turn should alternate between white and black', function() {
         expect(game.turn).toEqual(ChessColor.WHITE);
     });
 });
+
+describe('Enforce captures', function() {
+
+    it('When "x" is supplied, the move must be a capture ', () => {
+
+        const board = ChessBoard.fromStringList([
+            [ "a1", ChessPieceType.BISHOP, ChessColor.WHITE ],
+            [ "h8", ChessPieceType.BISHOP, ChessColor.BLACK ],
+        ]);
+
+        const game = ChessGame.newGameFromPosition(board, ChessColor.WHITE);
+        expect(() => { game.playMove("Bxg7") }).toThrow();
+    });
+
+    it('When "x" is missing, only moves are allowed', () => {
+
+        const board = ChessBoard.fromStringList([
+            [ "a1", ChessPieceType.BISHOP, ChessColor.WHITE ],
+            [ "h8", ChessPieceType.BISHOP, ChessColor.BLACK ],
+        ]);
+
+        const game = ChessGame.newGameFromPosition(board, ChessColor.WHITE);
+        expect(() => { game.playMove("Bh8") }).toThrow();
+    });
+});

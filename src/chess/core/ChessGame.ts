@@ -42,11 +42,23 @@ export default class ChessGame {
     public playMove(command: string) {
         const lib = new AlgebraicNotation();
         const move = lib.convert(command, this.board, this.turn);
+
+        this.verifyCapture(move, this.board);
+
         this._board = this.board.movePiece(move.origin, move.destination);
 
         this.verifyPromotion(move);
 
         this._turn ^= 1;
+    }
+
+    private verifyCapture(move: MoveResult, board: ChessBoard) {
+
+        if (move.isCapture && board.getAtSquare(move.destination) == undefined)
+            throw "There is no piece to capture at " + move.destination.toString();
+
+        if (!move.isCapture && board.getAtSquare(move.destination) != undefined)
+            throw "You cannot move to the square " + move.destination + " because it already contains piece";
     }
 
     private verifyPromotion(move: MoveResult) {

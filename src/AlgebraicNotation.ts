@@ -44,7 +44,7 @@ export default class AlgebraicNotation {
             throw new Error("Could not convert: " + command + " successfully");
         }
 
-        return new MoveResult(origin, destination, parseResult.promotion);
+        return new MoveResult(origin, destination, parseResult.promotion, parseResult.isCapture);
     }
 
     private computeOrigin(parsed: ParseResult, board: ChessBoard, turn: ChessColor): ChessSquare | undefined {

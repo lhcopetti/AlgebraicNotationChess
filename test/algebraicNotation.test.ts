@@ -85,7 +85,9 @@ describe('Conversion of pawn captures', function() {
             [ "d5", ChessPieceType.PAWN, ChessColor.WHITE ]
         ]);
 
-        expect(lib.convert("exd5", board, ChessColor.WHITE).toString()).toEqual("e4 -> d5");
+        const move = lib.convert("exd5", board, ChessColor.WHITE);
+        expect(move.toString()).toEqual("e4 -> d5");
+        expect(move.isCapture).toEqual(true);
     });
 
 });
@@ -131,7 +133,9 @@ describe('Conversion of bishop moves', function() {
             [ "f1", ChessPieceType.BISHOP, ChessColor.WHITE ]
         ]);
 
-        expect(lib.convert("Be2", board, ChessColor.WHITE).toString()).toEqual("f1 -> e2");
+        const move = lib.convert("Be2", board, ChessColor.WHITE);
+        expect(move.toString()).toEqual("f1 -> e2");
+        expect(move.isCapture).toEqual(false);
     });
 
 });
