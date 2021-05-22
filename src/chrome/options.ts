@@ -1,6 +1,6 @@
 
 
-import TokenStorage from './src/chrome/TokenStorage';
+import TokenStorage from './TokenStorage';
 
 console.log("Hello from options");
 

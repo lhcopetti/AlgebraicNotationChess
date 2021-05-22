@@ -1,9 +1,9 @@
-import LibNotation from './src/AlgebraicNotation'
-import LibHtml from './src/HtmlController'
-import LichessKeyboard from './src/LichessKeyboard'
-import LichessAPIClient from './src/LichessAPIClient'
-import LichessHtmlBoardReader from './src/LichessHtmlBoardReader'
-import TokenStorage from './src/chrome/TokenStorage'
+import LibNotation from '../AlgebraicNotation'
+import LibHtml from '../HtmlController'
+import LichessKeyboard from '../LichessKeyboard'
+import LichessAPIClient from '../LichessAPIClient'
+import LichessHtmlBoardReader from '../LichessHtmlBoardReader'
+import TokenStorage from '../chrome/TokenStorage'
 
 console.log("Initializing LichessKeyboard extension");
 
