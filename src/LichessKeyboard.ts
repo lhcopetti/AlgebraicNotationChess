@@ -1,12 +1,10 @@
-
 import LibNotation from './AlgebraicNotation';
 import LichessClient from './LichessAPIClient';
 import ChessGame from './chess/core/ChessGame';
 
-
 export default class LichessKeyboard {
-
     libNotation: LibNotation;
+
     lichessAPIClient: LichessClient;
 
     gameId? : string;
@@ -17,14 +15,14 @@ export default class LichessKeyboard {
     }
 
     handleCommand(command: string, game: ChessGame) {
-        const gameId = this.gameId;
+        const { gameId } = this;
 
         if (gameId == null) {
-            console.log ("Command: " + command + " has been ignored, gameId has not been set yet");
+            console.log(`Command: ${command} has been ignored, gameId has not been set yet`);
             return;
         }
 
-        console.log("The command typed is: " + command);
+        console.log(`The command typed is: ${command}`);
 
         const move = this.libNotation.convert(command, game.board, game.turn);
         const lichessCommand = move.origin.toString() + move.destination.toString();
@@ -33,7 +31,7 @@ export default class LichessKeyboard {
     }
 
     updateGameId(gameId: string) {
-        console.log("Updated the GameID to: " + gameId);
+        console.log(`Updated the GameID to: ${gameId}`);
         this.gameId = gameId;
     }
 }

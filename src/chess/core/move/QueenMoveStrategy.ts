@@ -1,17 +1,14 @@
-
-import { ChessBoard, LocalizedPiece } from '../../../../src/chess/core/ChessBoard';
-import { ChessSquare } from '../../../../src/chess/core/ChessSquare';
-import ChessColor from '../../../../src/chess/core/ChessColor';
-import MoveStrategyHelper from '../../../../src/chess/core/move/MoveStrategyHelper';
+import { ChessBoard, LocalizedPiece } from '../ChessBoard';
+import { ChessSquare } from '../ChessSquare';
+import ChessColor from '../ChessColor';
+import MoveStrategyHelper from './MoveStrategyHelper';
 
 export default class QueenMoveStrategy {
-
     getValidMoves(from: ChessSquare, board: ChessBoard): ChessSquare[] {
-
-        const up = MoveStrategyHelper.getMovesInDirection(from, board, sq => sq.up);
-        const down = MoveStrategyHelper.getMovesInDirection(from, board, sq => sq.down);
-        const left = MoveStrategyHelper.getMovesInDirection(from, board, sq => sq.left);
-        const right = MoveStrategyHelper.getMovesInDirection(from, board, sq => sq.right);
+        const up = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.up);
+        const down = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.down);
+        const left = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.left);
+        const right = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.right);
 
         const topLeft = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.up?.left);
         const topRight = MoveStrategyHelper.getMovesInDirection(from, board, (sq) => sq.up?.right);
@@ -20,10 +17,7 @@ export default class QueenMoveStrategy {
 
         return [
             ...up, ...down, ...left, ...right,
-            ...topLeft, ...topRight, ...bottomLeft, ...bottomRight
+            ...topLeft, ...topRight, ...bottomLeft, ...bottomRight,
         ];
     }
 }
-
-
-

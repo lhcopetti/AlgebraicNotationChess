@@ -1,19 +1,15 @@
-
-
 export default class Arrays {
-
     public static clone<Type>(arr: Type[]): Type[] {
         const result: Type[] = [];
 
-        for (let i = 0; i < arr.length; ++i)
-            result.push(arr[i]);
+        for (let i = 0; i < arr.length; ++i) result.push(arr[i]);
 
         return result;
     }
 
-    public static cloneMatrix<Type>(arr: Type[][]): Type[][]  {
+    public static cloneMatrix<Type>(arr: Type[][]): Type[][] {
         const result: Type[][] = [];
-        arr.forEach(e => result.push(Arrays.clone(e)));
+        arr.forEach((e) => result.push(Arrays.clone(e)));
         return result;
     }
 }

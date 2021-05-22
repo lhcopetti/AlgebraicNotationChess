@@ -4,12 +4,11 @@ import { ChessPieceType } from './ChessPieceType';
 import ChessColor from './ChessColor';
 import { ChessSquare, files, ranks } from './ChessSquare';
 import AlgebraicNotation from '../../AlgebraicNotation';
-import MoveResult from '../../chess/notation/MoveResult';
-
+import MoveResult from '../notation/MoveResult';
 
 export default class ChessGame {
-
     private _turn: ChessColor;
+
     private _board: ChessBoard;
 
     private constructor(board: ChessBoard, turn: ChessColor) {
@@ -53,24 +52,19 @@ export default class ChessGame {
     }
 
     private verifyCapture(move: MoveResult, board: ChessBoard) {
+        if (move.isCapture && board.getAtSquare(move.destination) == undefined) throw `There is no piece to capture at ${move.destination.toString()}`;
 
-        if (move.isCapture && board.getAtSquare(move.destination) == undefined)
-            throw "There is no piece to capture at " + move.destination.toString();
-
-        if (!move.isCapture && board.getAtSquare(move.destination) != undefined)
-            throw "You cannot move to the square " + move.destination + " because it already contains piece";
+        if (!move.isCapture && board.getAtSquare(move.destination) != undefined) throw `You cannot move to the square ${move.destination} because it already contains piece`;
     }
 
     private verifyPromotion(move: MoveResult) {
-        if (!move.promotion)
-            return;
+        if (!move.promotion) return;
 
         const type = this.board.getAtSquare(move.destination)!.piece;
-        if (type != ChessPieceType.PAWN)
-            return;
+        if (type != ChessPieceType.PAWN) return;
 
-        const color = this.board.getAtSquare(move.destination)!.color;
+        const { color } = this.board.getAtSquare(move.destination)!;
         const piece = new ChessPiece(move.promotion, color);
         this._board = this.board.putPieceAtSquare(piece, move.destination);
     }
-};
+}

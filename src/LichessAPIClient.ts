@@ -1,11 +1,8 @@
-
-
 export default class LichessAPIClient {
-
     token?: string;
 
     updateToken(token: string) {
-        console.log("Updating LichessAPIToken to: " + token);
+        console.log(`Updating LichessAPIToken to: ${token}`);
         this.token = token;
     }
 
@@ -14,15 +11,14 @@ export default class LichessAPIClient {
         const body = {} as any;
 
         const headers = new Headers();
-        headers.append("Authorization", "Bearer " + this.token);
+        headers.append('Authorization', `Bearer ${this.token}`);
 
-        fetch('https://lichess.org/api/board/game/' + gameId + '/move/' + move, {
-            method: method,
-            body: body,
-            headers: headers
+        fetch(`https://lichess.org/api/board/game/${gameId}/move/${move}`, {
+            method,
+            body,
+            headers,
         })
-            .then(res => res.json())
+            .then((res) => res.json())
             .then(console.log);
     }
-
 }

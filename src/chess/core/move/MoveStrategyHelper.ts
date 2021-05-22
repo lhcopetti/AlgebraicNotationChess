@@ -1,19 +1,16 @@
-
-import { ChessBoard, LocalizedPiece } from '../../../../src/chess/core/ChessBoard';
-import { ChessSquare } from '../../../../src/chess/core/ChessSquare';
-import ChessColor from '../../../../src/chess/core/ChessColor';
-import { ChessPieceType } from '../../../../src/chess/core/ChessPieceType';
+import { ChessBoard, LocalizedPiece } from '../ChessBoard';
+import { ChessSquare } from '../ChessSquare';
+import ChessColor from '../ChessColor';
+import { ChessPieceType } from '../ChessPieceType';
 
 export default class MoveStrategyHelper {
-
     public static getMovesInDirection(
-        from: ChessSquare, 
-        board: ChessBoard, 
+        from: ChessSquare,
+        board: ChessBoard,
         direction: (square: ChessSquare) => ChessSquare | null | undefined,
-        limit: number = Number.MAX_SAFE_INTEGER
+        limit: number = Number.MAX_SAFE_INTEGER,
 
     ) : ChessSquare[] {
-
         let currentSquare = direction(from);
         const validMoves = [];
 
@@ -21,13 +18,11 @@ export default class MoveStrategyHelper {
 
         const originPiece = board.getAtSquare(from);
 
-        while(null != currentSquare) {
-
+        while (currentSquare != null) {
             const piece = board.getAtSquare(currentSquare);
 
-            if (null != piece) {
-                if (piece.color != originPiece?.color)
-                    validMoves.push(currentSquare);
+            if (piece != null) {
+                if (piece.color != originPiece?.color) validMoves.push(currentSquare);
 
                 break;
             }
@@ -36,11 +31,9 @@ export default class MoveStrategyHelper {
             currentSquare = direction(currentSquare);
             limitCounter++;
 
-            if (limitCounter >= limit)
-                break;
+            if (limitCounter >= limit) break;
         }
 
         return validMoves;
     }
 }
-

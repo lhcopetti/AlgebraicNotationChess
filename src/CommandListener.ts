@@ -1,4 +1,4 @@
-import ChessGame from './chess/core/ChessGame'
+import ChessGame from './chess/core/ChessGame';
 
 export default interface CommandListener {
 

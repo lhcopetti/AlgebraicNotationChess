@@ -1,6 +1,6 @@
 class ChessSquare {
-
     private _file: string;
+
     private _rank: string;
 
     private constructor(file: string, rank: string) {
@@ -12,10 +12,9 @@ class ChessSquare {
         const file = square[0];
         const rank = Number(square[1]);
 
-        if (files.indexOf(file) < 0 || ranks.indexOf(rank) < 0)
-            return null;
+        if (files.indexOf(file) < 0 || ranks.indexOf(rank) < 0) return null;
 
-        return new ChessSquare(file, "" + rank);
+        return new ChessSquare(file, `${rank}`);
     }
 
     public toString(): string {
@@ -55,10 +54,12 @@ class ChessSquare {
     }
 }
 
-const files = [ "a", "b", "c", "d", "e", "f", "g", "h" ];
-const ranks = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
+const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+const ranks = [1, 2, 3, 4, 5, 6, 7, 8];
 
 const initialRankForWhite = 2;
 const initialRankForBlack = 7;
 
-export { ChessSquare, files, ranks, initialRankForWhite, initialRankForBlack };
+export {
+    ChessSquare, files, ranks, initialRankForWhite, initialRankForBlack,
+};

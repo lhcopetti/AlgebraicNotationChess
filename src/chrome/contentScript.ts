@@ -1,11 +1,11 @@
-import LibNotation from '../AlgebraicNotation'
-import LibHtml from '../HtmlController'
-import LichessKeyboard from '../LichessKeyboard'
-import LichessAPIClient from '../LichessAPIClient'
-import LichessHtmlBoardReader from '../LichessHtmlBoardReader'
-import TokenStorage from '../chrome/TokenStorage'
+import LibNotation from '../AlgebraicNotation';
+import LibHtml from '../HtmlController';
+import LichessKeyboard from '../LichessKeyboard';
+import LichessAPIClient from '../LichessAPIClient';
+import LichessHtmlBoardReader from '../LichessHtmlBoardReader';
+import TokenStorage from './TokenStorage';
 
-console.log("Initializing LichessKeyboard extension");
+console.log('Initializing LichessKeyboard extension');
 
 const lichessBoardReader = new LichessHtmlBoardReader();
 const htmlController = new LibHtml(document, lichessBoardReader);
@@ -15,20 +15,18 @@ const tokenStorage = new TokenStorage();
 
 const lichessKeyboard = new LichessKeyboard(new LibNotation(), lichessAPIClient);
 
-tokenStorage.addTokenChangedListener(newToken => {
+tokenStorage.addTokenChangedListener((newToken) => {
     lichessAPIClient.updateToken(newToken);
 });
 
-tokenStorage.getToken().then(token => lichessAPIClient.updateToken(token));
-
+tokenStorage.getToken().then((token) => lichessAPIClient.updateToken(token));
 
 htmlController.addListener(lichessKeyboard);
 htmlController.init();
 
-chrome.runtime.sendMessage({ data: "URL_REQUEST" } , function(response) {
+chrome.runtime.sendMessage({ data: 'URL_REQUEST' }, (response) => {
     console.log(response);
     const url = response.data;
     const gameId = url.substring(url.lastIndexOf('/') + 1);
     lichessKeyboard.updateGameId(gameId);
 });
-

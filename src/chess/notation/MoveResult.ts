@@ -1,13 +1,13 @@
-
 import { ChessSquare } from '../core/ChessSquare';
 import { ChessPieceType } from '../core/ChessPieceType';
 
 export default class MoveResult {
-
     _origin: ChessSquare;
+
     _destination: ChessSquare;
 
     _promotion?: ChessPieceType;
+
     _capture?: boolean;
 
     public constructor(origin: ChessSquare, destination: ChessSquare, promotion?: ChessPieceType, capture?: boolean) {
@@ -34,6 +34,6 @@ export default class MoveResult {
     }
 
     public toString(): string {
-        return this.origin + " -> " + this.destination;
+        return `${this.origin} -> ${this.destination}`;
     }
 }
