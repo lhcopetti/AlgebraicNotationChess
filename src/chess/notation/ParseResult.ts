@@ -1,9 +1,3 @@
-import ChessPiece from '../core/ChessPiece';
-import { ChessPieceType, pieceFromString } from '../core/ChessPieceType';
-import { ChessBoard } from '../core/ChessBoard';
-import { ChessSquare } from '../core/ChessSquare';
-import ChessColor from '../core/ChessColor';
-
 export default class ParseResult {
     private _origin?: string;
 

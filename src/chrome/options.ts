@@ -6,7 +6,7 @@ const storage = new TokenStorage();
 
 const elem = document.getElementById('lichessAPIToken') as HTMLInputElement;
 
-storage.getToken().then((token) => elem.value = token);
+storage.getToken().then((token) => { elem.value = token; });
 
 elem.addEventListener('change', (event) => {
     const { value } = <HTMLInputElement>event?.target;
