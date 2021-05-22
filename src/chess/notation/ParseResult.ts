@@ -10,12 +10,19 @@ export default class ParseResult {
     private _destination: string;
     private _isCapture: boolean = false;
     private _piece: ChessPieceType;
+    private _promotion?: ChessPieceType;
 
-    constructor(origin: string | undefined, destination: string, isCapture: boolean, piece: ChessPieceType) {
+    constructor(origin: string | undefined, 
+                destination: string, 
+                isCapture: boolean, 
+                piece: ChessPieceType,
+                promotion?: ChessPieceType
+               ) {
         this._origin = origin;
         this._destination = destination;
         this._isCapture = isCapture;
         this._piece = piece;
+        this._promotion = promotion;
     }
 
     public get origin() {
@@ -32,6 +39,10 @@ export default class ParseResult {
 
     public get isCapture() {
         return this._isCapture;
+    }
+
+    public get promotion() {
+        return this._promotion;
     }
 };
 
