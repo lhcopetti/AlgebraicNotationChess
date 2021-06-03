@@ -52,12 +52,30 @@ export default class AlgebraicNotation {
         const moveStrategy = this.getMoveStrategy(parsed.piece);
 
         const targetPiece = new ChessPiece(parsed.piece, turn);
-        const pieceCandidates = board.getPieces(targetPiece);
+        const allPieceSquares = board.getPieces(targetPiece);
 
-        return pieceCandidates.find((p) => moveStrategy
-            .getValidMoves(p, board)
-            .map((sq) => sq.toString())
-            .includes(parsed.destination));
+        const candidates = allPieceSquares
+                            .filter(p => this.evaluatePieceCandidate(p, board, parsed.destination));
+
+        if (candidates.length == 0) {
+            return undefined;
+        }
+
+        if (candidates.length > 1) {
+            throw new Error("More than one piece may make this move");
+        }
+
+        return candidates[0];
+    }
+
+    private evaluatePieceCandidate(sq: ChessSquare, board: ChessBoard, destination: string): boolean {
+
+        const piece = board.getAtSquare(sq)!;
+        const move = this.getMoveStrategy(piece.piece)
+
+        return move.getValidMoves(sq, board)
+                    .map((sq) => sq.toString())
+                    .includes(destination)
     }
 
     getMoveStrategy(piece: ChessPieceType): ChessMoveStrategy {

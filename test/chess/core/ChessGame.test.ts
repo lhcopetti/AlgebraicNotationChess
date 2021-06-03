@@ -96,3 +96,28 @@ describe('Enforce captures', function() {
         expect(() => { game.playMove("Bh8") }).toThrow();
     });
 });
+
+describe('Error when more than one piece may move to the same square', function() {
+
+    it('Expect error when two rooks may move to the same square', () => {
+
+        const board = ChessBoard.fromStringList([
+            [ "a1", ChessPieceType.ROOK, ChessColor.WHITE ],
+            [ "h1", ChessPieceType.ROOK, ChessColor.WHITE ],
+        ]);
+
+        const game = ChessGame.newGameFromPosition(board, ChessColor.WHITE);
+        expect(() => { game.playMove("Rd1") }).toThrow();
+    });
+
+    it('error when knights may move to the same square', () => {
+
+        const board = ChessBoard.fromStringList([
+            [ "c3", ChessPieceType.KNIGHT, ChessColor.WHITE ],
+            [ "g3", ChessPieceType.KNIGHT, ChessColor.WHITE ],
+        ]);
+
+        const game = ChessGame.newGameFromPosition(board, ChessColor.WHITE);
+        expect(() => { game.playMove("Ne4") }).toThrow();
+    });
+});
