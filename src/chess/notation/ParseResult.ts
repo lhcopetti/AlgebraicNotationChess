@@ -14,17 +14,22 @@ export default class ParseResult {
     private _piece: ChessPieceType;
 
     private _promotion?: ChessPieceType;
+    
+    private _desambiguatingFile?: string;
 
     constructor(origin: string | undefined,
         destination: string,
         isCapture: boolean,
         piece: ChessPieceType,
-        promotion?: ChessPieceType) {
+        promotion?: ChessPieceType,
+        desambiguatingFile?: string
+               ) {
         this._origin = origin;
         this._destination = destination;
         this._isCapture = isCapture;
         this._piece = piece;
         this._promotion = promotion;
+        this._desambiguatingFile = desambiguatingFile;
     }
 
     public get origin() {
@@ -45,5 +50,9 @@ export default class ParseResult {
 
     public get promotion() {
         return this._promotion;
+    }
+
+    public get desambiguatingFile() {
+        return this._desambiguatingFile;
     }
 }
