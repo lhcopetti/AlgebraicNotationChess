@@ -4,6 +4,61 @@ import ChessColor from '../../../src/chess/core/ChessColor';
 import { ChessPieceType } from '../../../src/chess/core/ChessPieceType';
 
 
+describe('parse pawn moves', function() {
+
+    const parser = new CommandParser();
+
+    it('pawn move for white', function() {
+
+        const result = parser.parse("e4", ChessColor.WHITE);
+
+        expect(result.destination).toBe("e4");
+        expect(result.origin).toBe(undefined);
+        expect(result.piece).toBe(ChessPieceType.PAWN);
+    });
+
+    it('pawn move for black', function() {
+
+        const result = parser.parse("e5", ChessColor.BLACK);
+
+        expect(result.destination).toBe("e5");
+        expect(result.origin).toBe(undefined);
+        expect(result.piece).toBe(ChessPieceType.PAWN);
+    });
+
+});
+
+describe('parse piece moves', function() {
+
+    const parser = new CommandParser();
+
+    it('knight move for white', function() {
+
+        const result = parser.parse("Nc3", ChessColor.WHITE);
+
+        expect(result.destination).toBe("c3");
+        expect(result.origin).toBe(undefined);
+        expect(result.piece).toBe(ChessPieceType.KNIGHT);
+    });
+
+});
+
+describe('parse piece captures', function() {
+
+    const parser = new CommandParser();
+
+    it('knight capture for white', function() {
+
+        const result = parser.parse("Nxe4", ChessColor.WHITE);
+
+        expect(result.destination).toBe("e4");
+        expect(result.origin).toBe(undefined);
+        expect(result.piece).toBe(ChessPieceType.KNIGHT);
+        expect(result.isCapture).toBe(true);
+    });
+
+});
+
 describe('parse pawn captures', function() {
 
     const parser = new CommandParser();
