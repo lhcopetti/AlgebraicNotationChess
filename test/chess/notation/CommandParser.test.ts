@@ -43,6 +43,40 @@ describe('parse piece moves', function() {
 
 });
 
+describe('parse desambiguating moves', function() {
+
+    const parser = new CommandParser();
+
+    it('knight move with disambiguating file', function() {
+
+        const result = parser.parse("Nge4", ChessColor.WHITE);
+
+        expect(result.destination).toBe("e4");
+        expect(result.desambiguatingFile).toBe("g");
+        expect(result.piece).toBe(ChessPieceType.KNIGHT);
+    });
+
+    it('rook move with disambiguating rank', function() {
+
+        const result = parser.parse("R8e5", ChessColor.WHITE);
+
+        expect(result.destination).toBe("e5");
+        expect(result.desambiguatingFile).toBe(undefined);
+        expect(result.desambiguatingRank).toBe(8);
+        expect(result.piece).toBe(ChessPieceType.ROOK);
+    });
+
+    it('both file and rank is required for disambiguating queen moves', function() {
+
+        const result = parser.parse("Qh4e1", ChessColor.WHITE);
+
+        expect(result.destination).toBe("e1");
+        expect(result.desambiguatingFile).toBe("h");
+        expect(result.desambiguatingRank).toBe(4);
+        expect(result.piece).toBe(ChessPieceType.QUEEN);
+    });
+});
+
 describe('parse piece captures', function() {
 
     const parser = new CommandParser();

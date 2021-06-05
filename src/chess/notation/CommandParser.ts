@@ -54,12 +54,13 @@ export default class CommandParser {
         const pieceType = this.parsePieceType(stream);
 
         const desambiguatingFile = this.parseDesambiguatingFile(stream);
+        const disambiguatingRank = this.parseDesambiguatingRank(stream);
 
         const isCapture = this.parseCapture(stream);
 
         const computedOrigin = this.computeOriginFromPawnCapture(destSquare, desambiguatingFile, turn, pieceType, isCapture);
 
-        return new ParseResult(computedOrigin?.toString(), destSquare.toString(), isCapture, pieceType);
+        return new ParseResult(computedOrigin?.toString(), destSquare.toString(), isCapture, pieceType, undefined, desambiguatingFile, disambiguatingRank);
     }
 
     private parseDestination(stream: StringStream): ChessSquare {
@@ -94,6 +95,18 @@ export default class CommandParser {
 
         stream.consumeOne();
         return file;
+    }
+
+    private parseDesambiguatingRank(stream: StringStream): number | undefined {
+        if (stream.empty)
+            return undefined;
+
+        const rank = +stream.content.charAt(0)
+        if (!ranks.includes(rank))
+            return undefined;
+
+        stream.consumeOne();
+        return rank;
     }
 
     private parseCapture(stream: StringStream): boolean {
