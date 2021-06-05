@@ -121,3 +121,42 @@ describe('Error when more than one piece may move to the same square', function(
         expect(() => { game.playMove("Ne4") }).toThrow();
     });
 });
+
+describe('Disambiguation will be used to narrow the search for the correct piece to move', function() {
+
+    it('Disambiguating rook move with file', () => {
+
+        const board = ChessBoard.fromStringList([
+            [ "a1", ChessPieceType.ROOK, ChessColor.WHITE ],
+            [ "h1", ChessPieceType.ROOK, ChessColor.WHITE ],
+        ]);
+
+        const game = ChessGame.newGameFromPosition(board, ChessColor.WHITE);
+        game.playMove("Rad1") 
+
+        expect(game.getPieceAt("a1")).toBe(undefined)
+
+        const whiteRook = new ChessPiece(ChessPieceType.ROOK, ChessColor.WHITE);
+        expect(game.getPieceAt("d1")).toEqual(whiteRook);
+
+        expect(game.getPieceAt("h1")).not.toBe(undefined);
+    });
+
+    it('Disambiguating knight move with rank', () => {
+
+        const board = ChessBoard.fromStringList([
+            [ "f3", ChessPieceType.KNIGHT, ChessColor.WHITE ],
+            [ "f5", ChessPieceType.KNIGHT, ChessColor.WHITE ],
+        ]);
+
+        const game = ChessGame.newGameFromPosition(board, ChessColor.WHITE);
+        game.playMove("N5d4") 
+
+        expect(game.getPieceAt("f5")).toBe(undefined)
+        const whiteKnight = new ChessPiece(ChessPieceType.KNIGHT, ChessColor.WHITE);
+        expect(game.getPieceAt("d4")).toEqual(whiteKnight);
+
+        expect(game.getPieceAt("f3")).toEqual(whiteKnight);
+    });
+
+});

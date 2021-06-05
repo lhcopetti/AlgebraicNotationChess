@@ -55,7 +55,8 @@ export default class AlgebraicNotation {
         const allPieceSquares = board.getPieces(targetPiece);
 
         const candidates = allPieceSquares
-                            .filter(p => this.evaluatePieceCandidate(p, board, parsed.destination));
+                            .filter(p => this.canMoveToSquare(p, board, parsed))
+                            .filter(p => this.checkDisambiguation(p, board, parsed));
 
         if (candidates.length == 0) {
             return undefined;
@@ -68,14 +69,24 @@ export default class AlgebraicNotation {
         return candidates[0];
     }
 
-    private evaluatePieceCandidate(sq: ChessSquare, board: ChessBoard, destination: string): boolean {
+    private canMoveToSquare(sq: ChessSquare, board: ChessBoard, parseResult: ParseResult): boolean {
 
         const piece = board.getAtSquare(sq)!;
         const move = this.getMoveStrategy(piece.piece)
 
         return move.getValidMoves(sq, board)
                     .map((sq) => sq.toString())
-                    .includes(destination)
+                    .includes(parseResult.destination)
+    }
+
+    private checkDisambiguation(sq: ChessSquare, board: ChessBoard, parseResult: ParseResult): boolean {
+
+        if (parseResult.disambiguatingFile && sq.file != parseResult.disambiguatingFile)
+            return false;
+
+        add parse rank
+
+        return true;
     }
 
     getMoveStrategy(piece: ChessPieceType): ChessMoveStrategy {

@@ -26,7 +26,7 @@ export default class ChessGame {
         return new ChessGame(board, turn);
     }
 
-    public getPieceAt(coord: string) {
+    public getPieceAt(coord: string) : ChessPiece | undefined {
         return this.board.getAt(coord);
     }
 
