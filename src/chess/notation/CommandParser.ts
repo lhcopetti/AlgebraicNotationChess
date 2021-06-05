@@ -53,14 +53,14 @@ export default class CommandParser {
 
         const pieceType = this.parsePieceType(stream);
 
-        const desambiguatingFile = this.parseDesambiguatingFile(stream);
-        const disambiguatingRank = this.parseDesambiguatingRank(stream);
+        const disambiguatingFile = this.parseDisambiguatingFile(stream);
+        const disambiguatingRank = this.parseDisambiguatingRank(stream);
 
         const isCapture = this.parseCapture(stream);
 
-        const computedOrigin = this.computeOriginFromPawnCapture(destSquare, desambiguatingFile, turn, pieceType, isCapture);
+        const computedOrigin = this.computeOriginFromPawnCapture(destSquare, disambiguatingFile, turn, pieceType, isCapture);
 
-        return new ParseResult(computedOrigin?.toString(), destSquare.toString(), isCapture, pieceType, undefined, desambiguatingFile, disambiguatingRank);
+        return new ParseResult(computedOrigin?.toString(), destSquare.toString(), isCapture, pieceType, undefined, disambiguatingFile, disambiguatingRank);
     }
 
     private parseDestination(stream: StringStream): ChessSquare {
@@ -85,7 +85,7 @@ export default class CommandParser {
         return pieceFromString(piece);
     }
 
-    private parseDesambiguatingFile(stream: StringStream): string | undefined {
+    private parseDisambiguatingFile(stream: StringStream): string | undefined {
         if (stream.empty)
             return undefined;
 
@@ -97,7 +97,7 @@ export default class CommandParser {
         return file;
     }
 
-    private parseDesambiguatingRank(stream: StringStream): number | undefined {
+    private parseDisambiguatingRank(stream: StringStream): number | undefined {
         if (stream.empty)
             return undefined;
 
@@ -121,16 +121,16 @@ export default class CommandParser {
     }
 
     private computeOriginFromPawnCapture(destination: ChessSquare
-                            , desambiguatingFile: string | undefined
+                            , disambiguatingFile: string | undefined
                             , turn: ChessColor
                             , pieceType: ChessPieceType
                             , isCapture: boolean
                             ): ChessSquare | undefined {
 
-        if (!desambiguatingFile || pieceType != ChessPieceType.PAWN || !isCapture)
+        if (!disambiguatingFile || pieceType != ChessPieceType.PAWN || !isCapture)
             return undefined;
 
-        const originFile = desambiguatingFile;
+        const originFile = disambiguatingFile;
 
         const originRank = this.getPreviousSquare(destination, turn).rank;
         const origin = ChessSquare.fromString(originFile + originRank)!;

@@ -15,24 +15,24 @@ export default class ParseResult {
 
     private _promotion?: ChessPieceType;
     
-    private _desambiguatingFile?: string;
-    private _desambiguatingRank?: number;
+    private _disambiguatingFile?: string;
+    private _disambiguatingRank?: number;
 
     constructor(origin: string | undefined,
         destination: string,
         isCapture: boolean,
         piece: ChessPieceType,
         promotion?: ChessPieceType,
-        desambiguatingFile?: string,
-        desambiguatingRank?: number
+        disambiguatingFile?: string,
+        disambiguatingRank?: number
                ) {
         this._origin = origin;
         this._destination = destination;
         this._isCapture = isCapture;
         this._piece = piece;
         this._promotion = promotion;
-        this._desambiguatingFile = desambiguatingFile;
-        this._desambiguatingRank = desambiguatingRank;
+        this._disambiguatingFile = disambiguatingFile;
+        this._disambiguatingRank = disambiguatingRank;
     }
 
     public get origin() {
@@ -55,11 +55,11 @@ export default class ParseResult {
         return this._promotion;
     }
 
-    public get desambiguatingFile() {
-        return this._desambiguatingFile;
+    public get disambiguatingFile() {
+        return this._disambiguatingFile;
     }
 
-    public get desambiguatingRank() {
-        return this._desambiguatingRank;
+    public get disambiguatingRank() {
+        return this._disambiguatingRank;
     }
 }
