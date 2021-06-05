@@ -4,6 +4,7 @@ import { ChessBoard } from '../core/ChessBoard';
 import { ChessSquare, files, ranks } from '../core/ChessSquare';
 import ChessColor from '../core/ChessColor';
 import ParseResult from './ParseResult';
+import StringStream from './StringStream';
 
 export default class CommandParser {
     public parse(command: string, turn: ChessColor): ParseResult {
@@ -17,7 +18,8 @@ export default class CommandParser {
             return result;
         }
 
-        if(result = this.parsePieceMove(command, turn))
+        const stream = new StringStream(command);
+        if(result = this.parsePieceMove(stream, turn))
             return result;
 
         throw Error(`Could not parse command: ${command}`);
@@ -45,93 +47,64 @@ export default class CommandParser {
         return new ParseResult(origin, destination.toString(), capture, piece, promotion);
     }
 
-    private parsePieceMove(command: string, turn: ChessColor): ParseResult {
+    private parsePieceMove(stream: StringStream, turn: ChessColor): ParseResult {
 
-        const destSquare = this.parseDestination(command);
-        command = this.consumeDestination(command);
+        const destSquare = this.parseDestination(stream);
 
-        const pieceType = this.parsePieceType(command);
-        command = this.consumePieceType(command);
+        const pieceType = this.parsePieceType(stream);
 
-        const desambiguatingFile = this.parseDesambiguatingFile(command);
-        command = this.consumeDesambiguatingFile(command);
+        const desambiguatingFile = this.parseDesambiguatingFile(stream);
 
-        const isCapture = this.parseCapture(command);
-        command = this.consumeCapture(command);
+        const isCapture = this.parseCapture(stream);
 
         const computedOrigin = this.computeOriginFromPawnCapture(destSquare, desambiguatingFile, turn, pieceType, isCapture);
 
         return new ParseResult(computedOrigin?.toString(), destSquare.toString(), isCapture, pieceType);
     }
 
-    private parseDestination(command: string): ChessSquare {
-        const sq = command.substring(command.length - 2, command.length);
-        return ChessSquare.fromString(sq)!;
+    private parseDestination(stream: StringStream): ChessSquare {
+        const sq = stream.content.substring(stream.length - 2, stream.length);
+        const square = ChessSquare.fromString(sq)!;
+
+        stream.slice(0, stream.length - 2);
+        return square;
     }
 
-    private consumeDestination(command: string): string {
-        return command.substring(0, command.length - 2);
-    }
-
-    private parsePieceType(command: string): ChessPieceType {
-        if (command.length == 0)
+    private parsePieceType(stream: StringStream): ChessPieceType {
+        if (stream.empty)
             return ChessPieceType.PAWN;
 
-        const piece = command.charAt(0);
+        const piece = stream.content.charAt(0);
 
-        if (files.includes(piece))
+        if (files.includes(piece)) {
             return ChessPieceType.PAWN;
-
+        }
+        
+        stream.consumeOne();
         return pieceFromString(piece);
     }
 
-    private consumePieceType(command: string): string {
-        if (command.length == 0)
-            return command;
-
-        try {
-            const piece = command.charAt(0);
-            pieceFromString(piece);
-            return command.substring(1);
-        } catch(e) {
-            return command;
-        }
-    }
-
-    private parseDesambiguatingFile(command: string): string | undefined {
-        if (command.length == 0)
+    private parseDesambiguatingFile(stream: StringStream): string | undefined {
+        if (stream.empty)
             return undefined;
 
-        const file = command.charAt(0)
-        if (files.includes(file))
-            return file;
+        const file = stream.content.charAt(0)
+        if (!files.includes(file))
+            return undefined;
 
-        return undefined;
+        stream.consumeOne();
+        return file;
     }
 
-    private consumeDesambiguatingFile(command: string): string {
-        if (command.length == 0)
-            return command;
-
-        const file = command.charAt(0)
-        if (files.includes(file))
-            return command.substring(1);
-
-        return command;
-    }
-
-    private parseCapture(command: string): boolean {
-        if (command.length == 0)
+    private parseCapture(stream: StringStream): boolean {
+        if (stream.empty)
             return false;
 
-        return command.charAt(0) == 'x';
-    }
+        if (stream.content.charAt(0) != 'x')
+            return false;
 
-    private consumeCapture(command: string): string {
-        if (command.length == 0 || !command.startsWith('x'))
-            return command;
-
-        return command.substring(1);
+        stream.consumeOne();
+        return true;
     }
 
     private computeOriginFromPawnCapture(destination: ChessSquare
